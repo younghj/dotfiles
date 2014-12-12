@@ -29,14 +29,14 @@ set expandtab
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
-if has('autocmd')
-   autocmd filetype html,xml set listchars-=tab:>.
-endif
+"augroup markup_lang
+"   autocmd!
+"   autocmd filetype html,xml set listchars-=tab:>.
+"augroup END
 
 nnoremap ; :
 nmap <silent> ,/ :nohlsearch<CR>
 syntax on
-filetype plugin indent on
 imap jj <Esc>
 imap <Home> <Esc>:tabp<CR>
 imap <End> <Esc>:tabn<CR>
@@ -56,17 +56,17 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'Valloric/YouCompleteMe'
-Plugin 'wincent/command-t'
 Bundle 'scrooloose/syntastic'
-
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-
-Bundle "honza/vim-snippets"
-
-Bundle "jiangmiao/auto-pairs"
-Bundle "sjl/gundo.vim"
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'garbas/vim-snipmate'
+Bundle 'honza/vim-snippets'
+Bundle 'jiangmiao/auto-pairs'
+Bundle 'sjl/gundo.vim'
+Bundle 'xolox/vim-misc'
+Bundle 'xolox/vim-session'
+Bundle 'kien/ctrlp.vim'
+Plugin 'bling/vim-airline'
 
 filetype plugin indent on
 filetype plugin on
@@ -83,5 +83,16 @@ set backupdir=~/.vim/tmp/backup//
 nnoremap :GNT :GundoToggle<CR>
 set undofile
 
-"C
-let g:C_UseTool_cmake = 'yes'
+"session management
+let g:session_directory = "~/.vim/session"
+let g:session_autoload = "no"
+let g:session_autosave = "no"
+let g:session_command_aliases = 1
+
+nnoremap <leader>so :OpenSession
+nnoremap <leader>ss :SaveSession
+nnoremap <leader>sd :DeleteSession<CR>
+nnoremap <leader>sc :CloseSession<CR>
+
+"airline
+set laststatus=2
