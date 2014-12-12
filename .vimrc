@@ -28,6 +28,7 @@ set clipboard=unnamed
 set expandtab
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
+set t_Co=256
 
 "augroup markup_lang
 "   autocmd!
@@ -66,6 +67,7 @@ Bundle 'sjl/gundo.vim'
 Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-session'
 Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 
 filetype plugin indent on
@@ -96,3 +98,9 @@ nnoremap <leader>sc :CloseSession<CR>
 
 "airline
 set laststatus=2
+"let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='badwolf'
+let g:airline_left_sep='>'
+let g:airline_right_sep='<'
+let g:airline#extensions#branch#enabled = 1

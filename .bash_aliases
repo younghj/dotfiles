@@ -18,3 +18,4 @@ alias saverc='cd $HOME;cp .vimrc /sdcard/dotfiles/; cp .bashrc /sdcard/dotfiles/
 alias dc='cd'
 alias s='ls'
 alias gitconfig='git config --global credential.helper wincred'
+alias vimspeed='cd ~;rm vim.log; vim --startuptime vim.log'
