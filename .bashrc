@@ -29,3 +29,6 @@ export PATH=$PATH:$JAVA_HOME/bin
 export PATH=$HOME/local/bin:$PATH
 
 CLICOLOR=1
+
+shopt -s extglob 
+
