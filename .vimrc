@@ -1,42 +1,136 @@
 set nocompatible
-let mapleader="\\"
+
+" Basic options {{{
+" Base setup {{{
+let maplocalleader="\\"
+let mapleader=","
+"set encoding=utf-8
+
+set showmode
+set showcmd
+set showmatch
+
+set ttyfast
+set ruler
+set laststatus=2
+set lazyredraw
+set splitbelow
+set splitright
+set autowrite
+set autoread
 set hidden
+
 set nowrap
 set linebreak
 set backspace=indent,eol,start
+
 set autoindent
 set copyindent
-set number
+set smartindent
 set shiftround
-set showmatch
-set gdefault
-set ignorecase
 set smartcase
 set smarttab
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+
+set gdefault
+set ignorecase
 set hlsearch
 set incsearch
+
 set history=10000
 set undolevels=10000
+set noswapfile
+
 set title
 set visualbell
 set noerrorbells
-set wildignore=*.swp,*.bak,*.pyc,*.class
-set ruler
-set tabstop=3
-set shiftwidth=3
-set smartindent
 set clipboard=unnamed
-set expandtab
+
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
+
+set encoding=utf-8
 set t_Co=256
 set background=dark
-set digraph
-set noswapfile
 set ff=unix
-set encoding=utf-8
 set so=999
+set foldmethod=marker
 
+" Time out on key codes but not mappings
+" Basically this makes terminal Vim work sanely
+ "set notimeout
+ "set ttimeout
+ "set ttimeoutlen=10
+
+" Save when losing focus
+au FocusLost * :silent! wall
+
+" }}}
+" Cursorline {{{
+" Only show cursorline in the current window and in normal mode.
+
+augroup cline
+    au!
+    au WinLeave,InsertEnter * set nocursorline
+    au WinEnter,InsertLeave * set cursorline
+augroup END
+
+" }}}
+" Wildmenu completion {{{
+set wildmenu
+set wildmode=list:longest
+
+set wildignore+=.hg,.git,.svn                    " Version control
+set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+set wildignore+=*.spl                            " compiled spelling word lists
+set wildignore+=*.sw?                            " Vim swap files
+set wildignore+=*.DS_Store                       " OSX bullshit
+
+set wildignore+=*.luac                           " Lua byte code
+
+set wildignore+=migrations                       " Django migrations
+set wildignore+=*.pyc                            " Python byte code
+
+set wildignore+=*.orig                           " Merge resolution files
+" }}}
+" Backups {{{
+set directory=~/.vim/tmp/swap//
+set undodir=~/.vim/tmp/undo//
+set backupdir=~/.vim/tmp/backup//
+
+nnoremap :GNT :GundoToggle<CR>
+set backup
+set undofile
+
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&undodir))
+   call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&backupdir))
+   call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+   call mkdir(expand(&directory), "p")
+endif
+" }}} 
+" ColorScheme{{{
+colorscheme hipster
+"let g:molokai_original = 1
+"let g:rehash256 = 1
+"colorscheme default
+"
+" Reload the colorscheme whenever we write the file.
+"augroup color_dev
+    "au!
+    "au BufWritePost badwolf.vim color badwolf
+"augroup END
+" }}}
+" Basic Autocmd Groups {{{
 augroup markup_lang
    au!
    au filetype html,xml set listchars-=tab:>.
@@ -57,9 +151,11 @@ augroup END
 
 augroup syntaxChange
    au!
-   au BufRead,BufNewFile *.md set filetype=markdown
+   au BufRead,BufNewFile *.m?d? set filetype=markdown
 augroup END
-
+" }}}
+" }}}
+" Basic mappings {{{
 nnoremap ; :
 nmap <silent> <leader>/ :nohlsearch<CR>
 syntax on
@@ -71,12 +167,13 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
-map <Leader>t :CommandT<CR>
 nmap ;vimset :e $HOME/.vimrc<CR>
 nnoremap j gj
 nnoremap k gk
 nmap ;todo :e $HOME/code/todo<CR>
-
+nnoremap <leader>W :set wrap!<CR>
+" }}}
+" Plugin/Vundle setup {{{
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
@@ -90,28 +187,24 @@ Bundle 'jiangmiao/auto-pairs'
 Bundle 'sjl/gundo.vim'
 Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-session'
-Bundle 'wincent/command-t'
+Bundle "kien/ctrlp.vim"
 Bundle 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
+Bundle 'sjl/badwolf'
+Bundle 'vim-pandoc/vim-pandoc-syntax'
+Bundle 'vim-pandoc/vim-pandoc'
 
 filetype plugin indent on
 filetype plugin on
-"AutoPairs
+"AutoPairs{{{
 let g:AutoPairsFlyMode = 1
-
-"YCM
+"}}}
+"YCM{{{
 let g:ycm_min_num_of_chars_for_completion = 2
-
-"Gundo
-set undodir=~/.vim/tmp/undo//
-set backupdir=~/.vim/tmp/backup//
-
-nnoremap :GNT :GundoToggle<CR>
-set undofile
-
-"session management
+"}}}
+"Session Management{{{
 let g:session_directory = "~/.vim/sessions"
 let g:session_autoload = "no"
 let g:session_autosave = "no"
@@ -121,47 +214,403 @@ nnoremap <leader>so :OpenSession
 nnoremap <leader>ss :SaveSession 
 nnoremap <leader>sd :DeleteSession<CR>
 nnoremap <leader>sc :CloseSession<CR>
-
-"airline
-set laststatus=2
+"}}}
+" Airline{{{
 "let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='badwolf'
 let g:airline_left_sep='>'
 let g:airline_right_sep='<'
 let g:airline#extensions#branch#enabled = 1
-
-"CtrlP
-let g:ctrlp_map = '<c-p>'
+" }}}
+" CtrlP{{{
+let g:ctrlp_map = '<leader>t'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_regexp = 1
+"}}}
+" }}}
+" Folding {{{
 
-"UltiSnips YCM integration
+set foldlevelstart=1
 
-"let g:UltiSnipsExpandTrigger='<C-j>'
-"let g:UltiSnipsJumpForwardTrigger='<C-j>'
-"let g:UltiSnipsJumpBackwardTrigger='<C-k>'
-"let g:UltiSnipsSnippetDirectories = ['UltiSnips','~/.vim/bundle/vim-snippets/UltiSnips']
+" Space to toggle folds.
+nnoremap <Space> za
+vnoremap <Space> za
 
-""UltiSnips completion function that tries to expand a snippet.
-""If there's no snippet for expanding, it checks for completion window
-""and if it's shown, selects first element. If there's no completion window
-""it tries to jump to next placeholder. If there's no placeholder it just
-""returns a TAB key
+" Make zO recursively open whatever fold we're in, even if it's partially open.
+nnoremap zO zczO
 
-"function! g:UltiSnips_Complete()
-   "call UltiSnips#ExpandSnippet()
-   "if g:ulti_expand_res == 0
-      "if pumvisible()
-         "return '\<C-n>'
-      "else
-         "call UltiSnips#JumpForwards()
-         "if g:ulti_jump_forwards_res == 0
-            "return '\<TAB>'
-         "endif
-      "endif
-   "endif
-   "return ''
-"endfunction
+" 'Focus' the current line.  Basically:
+"
+" 1. Close all folds.
+" 2. Open just the folds containing the current line.
+" 3. Move the line to a little bit (15 lines) above the center of the screen.
+" 4. Pulse the cursor line.  My eyes are bad.
+"
+" This mapping wipes out the z mark, which I never use.
+"
+" I use :sus for the rare times I want to actually background Vim.
+nnoremap <c-z> mzzMzvzz15<c-e>`z
 
-"au InsertEnter * exec 'inoremap <silent> ' . g:UltiSnipsExpandTrigger . ' <C-R>=g:UltiSnips_Complete()<cr>'
+
+" }}}
+" Filetype specific ------------------------------------------------------- {{{
+
+" Assembly {{{
+
+augroup ft_asm
+    au!
+    au FileType asm setlocal noexpandtab shiftwidth=8 tabstop=8 softtabstop=8
+augroup END
+
+" }}}
+" C {{{
+
+augroup ft_c
+    au!
+    au FileType c setlocal foldmethod=marker foldmarker={,}
+augroup END
+
+" }}}
+" CSS and LessCSS {{{
+
+augroup ft_css
+    au!
+
+    au BufNewFile,BufRead *.less setlocal filetype=less
+
+    au Filetype less,css setlocal foldmethod=marker
+    au Filetype less,css setlocal foldmarker={,}
+    au Filetype less,css setlocal omnifunc=csscomplete#CompleteCSS
+    au Filetype less,css setlocal iskeyword+=-
+
+    " Use <leader>S to sort properties.  Turns this:
+    "
+    "     p {
+    "         width: 200px;
+    "         height: 100px;
+    "         background: red;
+    "
+    "         ...
+    "     }
+    "
+    " into this:
+
+    "     p {
+    "         background: red;
+    "         height: 100px;
+    "         width: 200px;
+    "
+    "         ...
+    "     }
+    au BufNewFile,BufRead *.less,*.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+
+    " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
+    " positioned inside of them AND the following code doesn't get unfolded.
+    au BufNewFile,BufRead *.less,*.css inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
+augroup END
+
+" }}}
+" Java {{{
+
+augroup ft_java
+    au!
+
+    au FileType java setlocal foldmethod=marker
+    au FileType java setlocal foldmarker={,}
+augroup END
+
+" }}}
+" Javascript {{{
+function! MakeSpacelessBufferIabbrev(from, to)
+    execute "iabbrev <silent> <buffer> ".a:from." ".a:to."<C-R>=EatChar('\\s')<CR>"
+endfunction
+
+augroup ft_javascript
+    au!
+
+    au FileType javascript setlocal nofoldenable
+    au FileType javascript call MakeSpacelessBufferIabbrev('clog', 'console.log();<left><left>')
+
+    " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
+    " positioned inside of them AND the following code doesn't get unfolded.
+    au Filetype javascript inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
+    " }
+
+    " Prettify a hunk of JSON with <localleader>p
+    au FileType javascript nnoremap <buffer> <localleader>p ^vg_:!python -m json.tool<cr>
+    au FileType javascript vnoremap <buffer> <localleader>p :!python -m json.tool<cr>
+augroup END
+
+" }}}
+" Mail {{{
+
+augroup ft_mail
+    au!
+
+    au Filetype mail setlocal spell
+augroup END
+
+" }}}
+" Markdown {{{
+
+augroup ft_markdown
+    au!
+
+    au BufNewFile,BufRead *.m*down setlocal filetype=markdown foldlevel=1
+
+    " Use <localleader>1/2/3 to add headings.
+    au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
+    au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
+    au Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space><esc>`zllll
+    au Filetype markdown nnoremap <buffer> <localleader>4 mzI####<space><esc>`zlllll
+
+    au Filetype markdown nnoremap <buffer> <localleader>p VV:'<,'>!python -m json.tool<cr>
+    au Filetype markdown vnoremap <buffer> <localleader>p :!python -m json.tool<cr>
+augroup END
+
+" }}}
+" Nand2Tetris HDL {{{
+
+augroup ft_n2thdl
+    au!
+
+    au BufNewFile,BufRead *.hdl set filetype=n2thdl
+augroup END
+
+" }}}
+" Python {{{
+
+augroup ft_python
+    au!
+
+    au FileType python setlocal define=^\s*\\(def\\\\|class\\)
+    au FileType man nnoremap <buffer> <cr> :q<cr>
+
+    " built-in Python syntax, you couldn't let me
+    " override this in a normal way, could you?
+    au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
+
+    au FileType python iabbrev <buffer> afo assert False, "Okay"
+augroup END
+
+" }}}
+" Ruby {{{
+
+augroup ft_ruby
+    au!
+    au Filetype ruby setlocal foldmethod=syntax
+    au BufRead,BufNewFile Capfile setlocal filetype=ruby
+augroup END
+
+" }}}
+" Standard In {{{
+
+augroup ft_stdin
+    au!
+
+    " Treat buffers from stdin (e.g.: echo foo | vim -) as scratch.
+    au StdinReadPost * :set buftype=nofile
+augroup END
+
+" }}}
+" XML {{{
+
+augroup ft_xml
+    au!
+
+    au FileType xml setlocal foldmethod=manual
+
+    " Use <localleader>f to fold the current tag.
+    au FileType xml nnoremap <buffer> <localleader>f Vatzf
+
+    " Indent tag
+    au FileType xml nnoremap <buffer> <localleader>= Vat=
+augroup END
+
+" }}}
+
+" }}}
+" Text objects ------------------------------------------------------------ {{{
+
+" Next and Last {{{
+"
+" Motion for "next/last object".  "Last" here means "previous", not "final".
+" Unfortunately the "p" motion was already taken for paragraphs.
+"
+" Next acts on the next object of the given type, last acts on the previous
+" object of the given type.  These don't necessarily have to be in the current
+" line.
+"
+" Currently works for (, [, {, and their shortcuts b, r, B. 
+"
+" Next kind of works for ' and " as long as there are no escaped versions of
+" them in the string (TODO: fix that).  Last is currently broken for quotes
+" (TODO: fix that).
+"
+" Some examples (C marks cursor positions, V means visually selected):
+"
+" din'  -> delete in next single quotes                foo = bar('spam')
+"                                                      C
+"                                                      foo = bar('')
+"                                                                C
+"
+" canb  -> change around next parens                   foo = bar('spam')
+"                                                      C
+"                                                      foo = bar
+"                                                               C
+"
+" vin"  -> select inside next double quotes            print "hello ", name
+"                                                       C
+"                                                      print "hello ", name
+"                                                             VVVVVV
+
+onoremap an :<c-u>call <SID>NextTextObject('a', '/')<cr>
+xnoremap an :<c-u>call <SID>NextTextObject('a', '/')<cr>
+onoremap in :<c-u>call <SID>NextTextObject('i', '/')<cr>
+xnoremap in :<c-u>call <SID>NextTextObject('i', '/')<cr>
+
+onoremap al :<c-u>call <SID>NextTextObject('a', '?')<cr>
+xnoremap al :<c-u>call <SID>NextTextObject('a', '?')<cr>
+onoremap il :<c-u>call <SID>NextTextObject('i', '?')<cr>
+xnoremap il :<c-u>call <SID>NextTextObject('i', '?')<cr>
+
+
+function! s:NextTextObject(motion, dir)
+    let c = nr2char(getchar())
+    let d = ''
+
+    if c ==# "b" || c ==# "(" || c ==# ")"
+        let c = "("
+    elseif c ==# "B" || c ==# "{" || c ==# "}"
+        let c = "{"
+    elseif c ==# "r" || c ==# "[" || c ==# "]"
+        let c = "["
+    elseif c ==# "'"
+        let c = "'"
+    elseif c ==# '"'
+        let c = '"'
+    else
+        return
+    endif
+
+    " Find the next opening-whatever.
+    execute "normal! " . a:dir . c . "\<cr>"
+
+    if a:motion ==# 'a'
+        " If we're doing an 'around' method, we just need to select around it
+        " and we can bail out to Vim.
+        execute "normal! va" . c
+    else
+        " Otherwise we're looking at an 'inside' motion.  Unfortunately these
+        " get tricky when you're dealing with an empty set of delimiters because
+        " Vim does the wrong thing when you say vi(.
+
+        let open = ''
+        let close = ''
+
+        if c ==# "(" 
+            let open = "("
+            let close = ")"
+        elseif c ==# "{"
+            let open = "{"
+            let close = "}"
+        elseif c ==# "["
+            let open = "\\["
+            let close = "\\]"
+        elseif c ==# "'"
+            let open = "'"
+            let close = "'"
+        elseif c ==# '"'
+            let open = '"'
+            let close = '"'
+        endif
+
+        " We'll start at the current delimiter.
+        let start_pos = getpos('.')
+        let start_l = start_pos[1]
+        let start_c = start_pos[2]
+
+        " Then we'll find it's matching end delimiter.
+        if c ==# "'" || c ==# '"'
+            " searchpairpos() doesn't work for quotes, because fuck me.
+            let end_pos = searchpos(open)
+        else
+            let end_pos = searchpairpos(open, '', close)
+        endif
+
+        let end_l = end_pos[0]
+        let end_c = end_pos[1]
+
+        call setpos('.', start_pos)
+
+        if start_l == end_l && start_c == (end_c - 1)
+            " We're in an empty set of delimiters.  We'll append an "x"
+            " character and select that so most Vim commands will do something
+            " sane.  v is gonna be weird, and so is y.  Oh well.
+            execute "normal! ax\<esc>\<left>"
+            execute "normal! vi" . c
+        elseif start_l == end_l && start_c == (end_c - 2)
+            " We're on a set of delimiters that contain a single, non-newline
+            " character.  We can just select that and we're done.
+            execute "normal! vi" . c
+        else
+            " Otherwise these delimiters contain something.  But we're still not
+            " sure Vim's gonna work, because if they contain nothing but
+            " newlines Vim still does the wrong thing.  So we'll manually select
+            " the guts ourselves.
+            let whichwrap = &whichwrap
+            set whichwrap+=h,l
+
+            execute "normal! va" . c . "hol"
+
+            let &whichwrap = whichwrap
+        endif
+    endif
+endfunction
+
+" }}}
+" Numbers {{{
+
+" Motion for numbers.  Great for CSS.  Lets you do things like this:
+"
+" margin-top: 200px; -> daN -> margin-top: px;
+"              ^                          ^
+" TODO: Handle floats.
+
+onoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
+xnoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
+onoremap aN :<c-u>call <SID>NumberTextObject(1)<cr>
+xnoremap aN :<c-u>call <SID>NumberTextObject(1)<cr>
+onoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
+xnoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
+
+function! s:NumberTextObject(whole)
+    let num = '\v[0-9]'
+
+    " If the current char isn't a number, walk forward.
+    while getline('.')[col('.') - 1] !~# num
+        normal! l
+    endwhile
+
+    " Now that we're on a number, start selecting it.
+    normal! v
+
+    " If the char after the cursor is a number, select it.
+    while getline('.')[col('.')] =~# num
+        normal! l
+    endwhile
+
+    " If we want an entire word, flip the select point and walk.
+    if a:whole
+        normal! o
+
+        while col('.') > 1 && getline('.')[col('.') - 2] =~# num
+            normal! h
+        endwhile
+    endif
+endfunction
+
+" }}}
+
+" }}}

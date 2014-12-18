@@ -14,9 +14,13 @@ alias elink='elinks'
 alias mkvimtut='cd $HOME;cp -if vimtutor temptutor'
 alias pkgs='dpkg --get-selections'
 alias temptutor='vim temptutor'
-alias saverc='cd $HOME;cp .vimrc /sdcard/dotfiles/; cp .bashrc /sdcard/dotfiles/; cp .bash_aliases /sdcard/dotfiles/; cd /sdcard/dotfiles'
+alias saverc='cd $HOME;mkdir -p /sdcard/dotfiles/.vim/; cp .vimrc /sdcard/dotfiles/; cp .bashrc /sdcard/dotfiles/; cp .bash_aliases /sdcard/dotfiles/;cd .vim/;cp -rf !(bundle) /sdcard/dotfiles/.vim/; cd /sdcard/dotfiles'
 alias dc='cd'
 alias s='ls'
 alias gitconfig='git config --global credential.helper wincred'
 alias vimspeed='cd ~;rm vim.log; vim --startuptime vim.log'
-alias vimin="vim +PluginInstall +qall"
+alias vimin='vim +PluginInstall +qall'
+md (){
+    rm ${1%\.m*d*}.html 2>/dev/null
+    ~/code/Markdown_1.0.1/Markdown.pl "$1" > ${1%\.m*d*}.html
+}
