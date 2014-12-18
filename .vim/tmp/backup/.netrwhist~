@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/root/code/otherDot/sjl'
+let g:netrw_dirhist_2='/root/code/otherDot/sjl/vim'
+let g:netrw_dirhist_3='/root/.vim/syntax'
+let g:netrw_dirhist_4='/root/.vim'
+let g:netrw_dirhist_5='/root/.vim/colors'
+let g:netrw_dirhist_6='/root/code/otherDot/connermd/.vim'
+let g:netrw_dirhist_7='/root/code/otherDot/connermd'

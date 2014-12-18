@@ -1,0 +1,481 @@
+#AuthorScript Documentation  
+
+AuthorScript is a scripting language, similar to Python, but it is moderately lacking in terms of functionality and support. However, due to its simplicity it is a good scripting language to compile and run for the purposes of creating animated clips.  
+
+##Variables  
+
+Variables are keys that associates a value to them. Their names follow the same format as C variable names (which is the regular expression:`[a-zA-Z_][0-9a-zA-Z_]*`). For users who are not familiar with regular expressions the above statement simply states that the first character must start with a lower/uppercase letter or an underscore, followed by any number of lower/uppercase letters, underscores or numbers.  
+Undefined variables have an initial value of 'nil'. variables with nil as their value and is not allowed to be used.  
+
+    var = 1
+
+The above is an example of variable declaration. A var named 'var' was declared and given the value 1 upon declaration. Although there is a way to declare variables within the local scope, but it is highly discouraged to do so, as it will cause various unknown behaviours and errors.  
+A special type of variable is called 'outlet'. Just think of them as a way for the interpreter to connect with the program outside. They cannot be evaluated or reassigned. 'Outlet' variables have the type 'Class' and are highlighted in yellow to help the programmer distinguish the other variables.  
+
+
+##Printing  
+
+It is very simple to print in AuthorScript:  
+
+    say "Hello World" 
+
+The above state would have printed the line 'Hello World' to the terminal. Furthermore, say can take unlimited amount of arguments and print them out to the terminal space separated.  
+
+##Comments  
+
+Currently AuthorScript only supports one line comment with the escape string "//"  
+For example:  
+
+    var = 5// assigns var to 5
+
+Everything after // is escaped and ignored with compiling the program  
+
+Note: Printing and Commenting are great tools used for debugging (i.e. getting rid of problems in the program)  
+
+
+##Semicolons and Backslash  
+
+Unlike many other programming languages that are commonly used in the industry, AuthorScript does not require semicolons at the end of each statement. However, they can become useful when trying to condense the code to make it more aesthetically pleasing to read.  
+It can be used to have multiple instructions on the same line:  
+
+For example:  
+
+    a=5; b=6; c=7;
+
+Which would be equivalent to:  
+
+    a=5
+    b=6
+    c=7
+
+Conversely, the backslash can be used to separate a single line into multiple lines:  
+
+    say \  
+    "Hello" \  
+    "World"
+
+The above would print "Hello World" to the terminal even though the instruction is on multiple lines.  
+The semicolon is used when two or more short lines that are related in function are on different lines and putting the code on multiple lines become a waste of space.  
+The backslash is used when a single command is very long is starting to look disorganised.  
+
+##Types  
+
+There are in total 7 types of variables in AuthorScript. They are classified into basic types and collection types. They are as follows:  
+
+###Basic:  
+* int  
+* float  
+* string  
+* boolean  
+
+###Collection:  
+* array  
+* dictionary  
+* class  
+
+###int/float  
+int is any integer (i.e. -1, 0, 1, 2, etc.)  
+float is any real number  
+
+Although in most languages there is a functional difference between an int and a float, but in AuthorScript they are indistinguishable.  
+It is usually the case that if two integers were divided by one another, the output would also be an integer.  
+
+Most other languages:
+
+    2/3  
+    >>0  
+    2.0/3  
+    >>0.66666  
+
+AuthorScript:
+
+    2/3
+    >>0.66666
+    2.0/3
+    >>0.66666
+
+###String  
+
+A string type is any combination of empty or non-empty characters.  
+Thus an empty string is also considered a string (i.e. "")  
+
+For users who are not familiar with programming, the type called 'string' can be seen as the first word of a phrase that describes what this group is. It is a 'STRING of characters'   
+Where a string is define as the following:  
+"a set of things tied or threaded together on a thin cord"  
+
+###Boolean  
+
+A boolean is a value that either ON or OFF.
+
+    boolVar = true
+
+The above sets a variable named 'boolVar' to a true(ON) value  
+
+The same can be done with a false(OFF) value:
+
+    boolVar2 = false
+
+Due to the lack of versatility of a boolean value, it may seem like it lacks in functionality, but in retrospect, it is commonly used to store verification or confirmation data.  
+
+>"Less is more"  
+
+###Array  
+
+Arrays are a list of values starting at index 0. It can be constructed using the operator [].  
+It is quite important to mention that arrays beginning at an index of 0 in AuthorScript. Unlike in society how numbered lists usually start at 1, computers start counting virtually everything from 0.  
+
+    [val1, val2, val3, ...]
+
+The above is the syntax to construct an array, where [] would be an empty array.  
+Array can be very versatile:  
+
+    var = [1,2,3]// assigns var to array containing 1, 2, and 3  
+    for i in [1,2,3]
+    // initialized an array that the for-loop can loop through assigning each value to the variable named 'i' in order from first item to the last  
+    var = sum([1,2,3])// assigns var to the sum of the values in the array  
+
+###Dictionary  
+
+Dictionaries are key-value mappings, Any type can be used as keys and any type can used as values, even arrays and other dictionaries. The construction of a dictionary use the following format:
+
+    {key: value, key: value}
+
+Dictionaries are less versatile than arrays because dictionary would not be used in for-loops in the same way arrays are used.  
+
+``[]`` is how an empty array is defined and  
+``{}`` is how an empty dictionary is defined  
+
+####How to access values in collections?  
+
+The format for accessing values in arrays and dictionaries do not vary too greatly.  
+
+    a=myArray[2] //gets the 3rd element of the array called 'myArray'.  
+    b=myDictionary["key"] //gets the value associated with the 'key' that it was initialized with.  
+
+#####There are three things to note here:  
+1. Both arrays and dictionaries can hold ANY type of variable, but arrays are accessed with integers and dictionaries are accessed by strings.  
+    * If arrays or dictionaries are accessed with an invalid index or key the program will crash.  
+2. As it is possible to put an array into a dictionary, dictionary into an array or many other combinations, it is also possible to access multi-dimensional collections values by chaining `[]`.  
+    * e.g. `a = myArray[0]["key"]`   
+3. Since there is no built in function to identify what type a variable is, in order to avoid headaches while programming in AuthorScript, it is highly recommended to not use dictionaries on their own. Rather, implement a function that stores the value as well as the type in a separate key.  
+    * e.g. `myObject = {"value":Object, "type":Object's Type}`
+    * With careful planning while programming, it is possible to know the type of an object whenever needed.  
+
+Referring to the example for the second point:   
+An element in the array called 'myArray' was accessed which held a dictionary, from which a value corresponding to the key was accessed.  
+This is was to exemplify such behaviour is possible and is quite common in practise.  
+Having said the above, it is very important to know what type is being used at any point values are being accessed.   
+
+#####Program will crash if:  
+
+* `var[0]` was accessed and "var" is a basic variable type  
+* `var[0]` was accessed and "var" is a dictionary or an empty array or the index used is greater than or equal to the number of values in the array  
+* `var["key"]` was accessed and "var" is an array or an empty dictionary or the "key" does not exist in the dictionary  
+
+##Basic Operators  
+There are in total 5 math operators, 6 comparison operators and 3 boolean operators.  
+
+####5 math operators:
+
+* `+`: addition  
+* `-`: subtraction  
+* `*`: multiplication  
+* `/`: division  
+* `%`: modular operator  
+
+Most users will be familiar with the first 4 mathematical operators but might not know what a modular operator does.  
+To concisely explain, it is the value that is 'left over' after a division.  
+For example: `3 % 3` would yield `0` because `3 / 3` is exactly `1` with no remainders  
+But `4 % 3` would yield `1` because `4 / 3` is `1` with `1` remaining  
+
+####6 comparison operators:
+
+* `==`: equals  
+* `!=`: does not equal  
+* `>=`: is greater than or equal to  
+* `<=`: is less than or equal to  
+* `>`: is greater than  
+* `<`: is less than  
+
+Note that `=>` or `<=` is not the correct syntax and the program will not compile  
+Other than `==`, these operators can only compare number types.  
+`==` can compare between any types, however the number `9` and a string `'9'` are two different values.  
+As one would not be able to do `'8'>'7'` since they are both strings, it is also illegal to do `'8'>7`  
+
+####3 boolean operators:
+
+* `not()`: negates the boolean statement in ()
+    - not(true) is false and not(false) is true  
+* `and`: yields true if both boolean values on either side of the 'and' is true  
+* `or`: yields true if one of the booleans on either side of the 'or' is true  
+
+##Control Flow  
+
+The control flow of AuthorScript only uses 'if'. Control flows allow the program to not just simply run from point A to B, but allows the program the diverge when certain conditions are met and others are not.  
+
+The format for an if-statement is:  
+
+    if condition
+       code that runs the if-condition is true
+    end
+
+In addition to an if-statement, and elsif statement can be added to test another condition if the first condition yields false and the 'code that runs if condition is true' does not run.  
+
+The format for an if-elsif-statement is:
+
+    if condition1
+        code that runs if condition1 is true
+    elsif condition2
+        code that runs if condition2 is true
+    elsif condition3
+        code that runs if condition3 is true
+    end
+
+The above statement has two elsif statements, but in actuality there can be unlimited number of elsif statements following the if statement.  
+The conditions are tested top-down (i.e. condition1 then condition2 then condition3), with condition2 running only if condition1 fails (or yields false). Thus, as the conditions are in line to be run and tested, if any condition yields true, none of the conditions below the successful one will run.  
+
+An else statement can be added to run if none of the if or elsif conditions are met in that block.  
+
+Format:  
+
+    if condition
+        code
+    elsif condition2
+        code2
+    elsif condition3
+        code3
+    else
+        code4
+    end
+
+In control flow the if statement MUST be there.  
+However, the elsif and else statements are optional.   
+An elsif is also not required to write an else statement.  
+
+
+##Loops  
+
+###For-loops  
+
+There are two types of loops in AuthorScript: for and while.   
+For-loops were previously mentioned in the text, and although the general definition of a for-loop is to loop around a given set of instructions 'for while a condition is true' but in AuthorScript is used to iterate through arrays (i.e. sequentially go through an array from first element to last element).  
+
+The format is:  
+
+    for i in [1,2,3,4]
+        say i
+    end
+
+Output:  
+
+    >>1  
+    >>2  
+    >>3  
+    >>4
+
+The above is what the outputs from this for-loop would be.  
+Although the array `[1,2,3,4]` was used, this array could essentially be replaced with any array, whether it's declared there, on the spot, or in a previous part of the code.  
+It is also important to mention that `i` is an arbitrary variable, thus any variable name can be used.  
+It is good practise to replace `i` with a name that will be more descriptive of what type of variables will be looped into `i`.  
+
+For example:  
+
+    animalsInZoo = ['tiger','lion','giraffe']  
+    for animals in animalsInZoo  
+        say animals  
+    end  
+
+The above code declared an array with the strings 'tiger', 'lion' and 'giraffe' into the variable called 'animalsInZoo'.  
+Then on the first loop, 'animals' will be given the value 'tiger', then the code inside the for-loop will run.   
+Next with 'animals' given the value 'lion', and lastly 'animals' given the value 'giraffe'.  
+
+
+###While-loops  
+
+While-loops are the base of the logic behind a functional for-loop. A while-loop, repeats a set of commands (inside the while-loop) WHILE the condition stated at the beginning of the while-loop is true.  
+
+The format is as follows:  
+
+    while condition  
+        code  
+    end  
+
+In the case of a while loop, if the 'condition' does not satisfy when the program gets to the while loop, the 'code' inside the while loop will not run even once.  
+This is because a while loop checks if the condition is true in the beginning of the loop.  
+
+For example:  
+
+    loopVar = 3  
+    
+    while loopVar < 6  
+        say loopVar  
+        loopVar = loopVar + 1  
+    end  
+    
+    say "loop is done"  
+    say loopVar  
+
+Output:  
+
+    >> 3  
+    >> 4  
+    >> 5  
+    >> loop is done  
+    >> 6  
+
+
+Notice how inside the loop only 3, 4 and 5 was outputed but when while loop was finished loopVar had a value of 6.  
+The reason why the variable had a value of 6 after coming out of the while-loop was because when the variable had a value of 5, it was still allowed to loop through the while-loop.  
+Which makes the value of the variable increase by one (now it is 6).  
+Now that the value of the variable is not less than 6, it does not go through the while-loop, but the value is still 6.  
+This is important to note when using while-loops.  
+
+Also, in a while loop it is VERY important to note that the variable(s) in the while loop condition must change INSIDE the while loop.   
+This is because the code after the while loop will not run unless the while loop is finished.   
+If the while loop starts, and the variable that made the condition equal true never becomes false, then the program will not stop running due to a case called 'infinite looping'. Which basically means that the program will stay inside the loop until the program is forced to quit.  
+
+
+##Functions  
+
+A function is a set of instruction that is given a name.  
+
+One would create a function for the follow reasons:  
+* if there is a set of instructions that is repeated throughout the program that would be redundant to type out multiple times  
+* if there is a set of instructions that need to be executed in different parts of the whole program  
+
+There is two different types of syntax for function:  
+
+    def functionName  
+        code  
+    end  
+
+OR  
+
+    def functionName(parameter1, parameter2, ...)  
+        code  
+    end  
+
+The first syntax requires only the name of the function in order for the function to be successfully executed whenever called in the program.  
+The second type requires the same numbers of variables inputed when calling the function to serve as parameters.  
+
+This may be hard to grasp for users with no programming background.   
+An example used to help with this concept:  
+
+    //Somewhere in the code (perhaps in the initialization section)  
+    def resetCountVariable  
+        count = 0  
+    end  
+    
+    //Another part of the code  
+    count // declare the variable 'count'  
+    
+    resetCountVariable // reset the count variable so it equates to 0  
+    
+    while count < 3 // runs while count is less than 3  
+        say count // print the value of count  
+        count = count + 1 //add 1 to the current value of count  
+    
+        if count == 3 //if count equals to 3 (after the +1 has been done)  
+            resetCountVariable // turn it back into 0, this creates an infinite loop  
+        end  
+    end  
+
+Notice how the count variable that is altered within the `resetCountVariable` function changes to the value of the count variable that is in the program even though the variable was declared after the `resetCountVariable` function. This can happen because `count` is a variable that is global and also shares to the same name.  
+
+The best way to understand any of these concepts is to experiment with them.  
+
+An example of the function with parameters look like the following:  
+
+    def add(firstNumber, secondNumber)  
+        return firstNumber + secondNumber  
+    end  
+    
+    a = 3  
+    b = 4  
+    say add(a,b)  
+
+Output:
+
+    >> 7  
+
+Although in this example there are two parameters, there can be any number of parameters.   
+It is important to note that two functions can share the same name if they do not also share the same number of parameters.  
+And when calling one function it is important to match the number of parameters.  
+A parameter is simply a fancy term for variables that are used when declaring and calling functions.   
+
+In the above example of `add()`, it returned an integer value, but any other type can be returned as well.   
+If return is not used or there is nothing preceding return, a value of nil will be returned.  
+
+Note that no space can be added between the function name and the parenthesis "(".  
+
+Once a function is defined, functions can be called anywhere in the module.  
+
+
+##Scope  
+
+At any part of the execution, there exists two scopes: local and global. Global scoped variables are shared across the entire module, and local scoped variables only exists during the execution of the current block (e.g. function, loop, if-statement). To programmatically bind a variable to the local scope, the keyword `local` can be declared before the variable name. However, except for particular cases local variables do not seem to work as they should and may cause undefined behaviours or more commonly program crashes.  
+
+
+##Built-in Procedures  
+Here is a list of procedures.  
+Note that these procedures will return a nil value thus it is not recommended to try getting their value.  
+
+_prototype_: say val1, val2, ...  
+_description_: prints the list of values to the terminal space separated.  
+
+_prototype_: playMovie start, end  
+_description_: when no value supplied, just plays the movie. If 1 value is supplied, jump to the seconds and plays the movie. If 2 values are supplied, plays the movie from first value for the duration of the second value.  
+
+_prototype_: stopMovie  
+_description_: stops the progression of the movie.
+
+_prototype_: refresh  
+_description_: goes back to the point where the movie last stopped. It is important to note that settings are note that none of the object properties are reverted (e.g. if an object was originally draggable at that point, and the property was changed to make it undraggable, the object will stay undraggable even after calling this function).  
+
+_prototype_: trigger outlet, outlet.eventOutlet  
+_description_: triggers the event outlet for the sprite outlet.  
+
+_prototype_: move Sprite, x, y  
+_description_: moves the sprite outlet to coord (x,y).  
+
+_prototype_: animatedMove Sprite, x, y, duration  
+_description_: moves the sprite outlet to coord (x,y) for the duration measured in seconds.  
+
+_prototype_: needsDisplay sprite1, sprite2, ...  
+_description_: update the sprite properties (such as font colour) onto the screen.  
+
+_prototype_: setAlpha Sprite, Alpha  
+_description_: set the alpha value of the sprite.  
+
+_prototype_: setUrl Sprite, url  
+_description_: if the sprite is a webview sprite, this procedure will change or initialize the url of the webview sprite. The url should be expressed as a string.  
+
+_prototype_: runCompletionScript  
+_description_: `unknown`
+
+##Built-in Functions  
+
+_prototype_: range(a=0,b,c=1)  
+_returns_: array  
+_description_: generates an array that contains integers from a to b incremented by c for every index. If only 1 value is supplied, then a = 0, c = 1, and b to the value supplied.  
+
+_prototype_: len(obj)  
+_returns_: int  
+_description_: returns the length of the collection obj.  
+
+_prototype_: not(booleanValue)  
+_returns_: boolean  
+_description_: inverts the inputted boolean value.  
+
+_prototype_: exist(var)  
+_returns_: boolean  
+_description_: check if the variable is defined in the local or global scope.  
+
+_prototype_: getCurrentX(sprite)  
+_returns_: float  
+_description_: get the float value of the sprite's x position on screen.  
+
+_prototype_: getCurrentY(sprite)  
+_returns_: float  
+_description_: get the float value of the sprite's y position on screen.  
+
