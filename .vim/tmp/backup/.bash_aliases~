@@ -34,7 +34,7 @@ nand (){
     projDir=~/code/osproj;
     if [ $# -ne 3 ] 
     then
-        printf "\nProgram List:\nasm:Assembler\ncpu: CPU Emulator\nhds: Hardware Simulator\njcp: Jack Compiler\nvme: VM Emulator\n\n";
+        printf "\nProgram List:\nasm: Assembler\ncpu: CPU Emulator\nhds: Hardware Simulator\njcp: Jack Compiler\nvme: VM Emulator\n\n";
         printf "Format:\nnand [File Number] \"[Name/Pattern of File]\" [Program]\n\n"
         return;
     fi
