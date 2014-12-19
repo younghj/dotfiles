@@ -40,8 +40,8 @@ set ignorecase
 set hlsearch
 set incsearch
 
-set history=10000
-set undolevels=10000
+set history=1000
+set undolevels=1000
 set noswapfile
 
 set title
@@ -168,6 +168,7 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 nmap ;vimset :e $HOME/.vimrc<CR>
+nmap ;vismet :e $HOME/.vimrc<CR>
 nnoremap j gj
 nnoremap k gk
 nmap ;todo :e $HOME/code/todo<CR>
@@ -228,6 +229,32 @@ let g:ctrlp_map = '<leader>t'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_regexp = 1
 "}}}
+" Surround.vim {{{2
+let g:surround_42 = "**\r**"
+nnoremap ** :exe "norm v$hS*"<cr>
+nnoremap __ :exe "norm v$hS_"<cr>
+vmap * S*
+vmap _ S_
+" }}}
+" UltiSnips {{{2
+ function! g:UltiSnips_Complete()
+ call UltiSnips#ExpandSnippet()
+ if g:ulti_expand_res == 0
+     if pumvisible()
+         return "\<C-n>"
+     else
+         call UltiSnips#JumpForwards()
+         if g:ulti_jump_forwards_res == 0
+            return "\<TAB>"
+         endif
+     endif
+ endif
+ return ""
+ endfunction
+
+ au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+ let g:UltiSnipsJumpForwardTrigger="<tab>"
+ let g:UltiSnipsListSnippets="<c-r><tab>"
 " }}}
 " Folding {{{
 
@@ -392,6 +419,7 @@ augroup ft_python
     au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
 
     au FileType python iabbrev <buffer> afo assert False, "Okay"
+    au FileType python cnoremap <buffer> pc :!python %<CR>
 augroup END
 
 " }}}

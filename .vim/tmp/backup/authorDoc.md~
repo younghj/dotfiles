@@ -179,7 +179,7 @@ There are in total 5 math operators, 6 comparison operators and 3 boolean operat
 
 * `+`: addition  
 * `-`: subtraction  
-* `*`: multiplication  
+* `*`: multiplication
 * `/`: division  
 * `%`: modular operator  
 
@@ -449,6 +449,9 @@ _description_: set the alpha value of the sprite.
 
 _prototype_: setUrl Sprite, url  
 _description_: if the sprite is a webview sprite, this procedure will change or initialize the url of the webview sprite. The url should be expressed as a string.  
+
+_prototype_: setImage Sprite, image
+_description_: to be implemented
 
 _prototype_: runCompletionScript  
 _description_: `unknown`

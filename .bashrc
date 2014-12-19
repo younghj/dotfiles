@@ -31,4 +31,4 @@ export PATH=$HOME/local/bin:$PATH
 CLICOLOR=1
 
 shopt -s extglob 
-
+FIGNORE=.class:.out:.tst:.cmp
