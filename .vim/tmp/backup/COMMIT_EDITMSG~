@@ -1,0 +1,20 @@
+added code directory
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Committer: root <root@android-3dfd7747bf5cb838.(none)>
+#
+# On branch master
+# Your branch is ahead of 'origin/master' by 2 commits.
+#
+# Changes to be committed:
+#   (use "git reset HEAD^1 <file>..." to unstage)
+#
+#	modified:   .bash_aliases
+#	new file:   code.tar.gz
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	.vim/
