@@ -1,7 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/root/code'
 let g:netrw_dirhist_2='/root/code/otherDot'
 let g:netrw_dirhist_3='/root/code/otherDot/connermd'
 let g:netrw_dirhist_4='/root/.vim/bundle/vim-snippets'
 let g:netrw_dirhist_5='/root/.vim/bundle/vim-snippets/UltiSnips'
+let g:netrw_dirhist_6='/root/.vim/bundle/ultisnips/autoload/UltiSnips'
+let g:netrw_dirhist_7='/root/.vim/bundle/ultisnips/autoload'

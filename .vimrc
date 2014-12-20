@@ -52,6 +52,7 @@ set clipboard=unnamed
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
+set path=**
 set encoding=utf-8
 set t_Co=256
 set background=dark
@@ -163,10 +164,6 @@ inoremap jj <Esc>
 cnoremap jj <Esc>
 vmap Q gq
 nmap Q gqap
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
 nmap ;vimset :e $HOME/.vimrc<CR>
 nmap ;vismet :e $HOME/.vimrc<CR>
 nnoremap j gj
@@ -175,12 +172,14 @@ nmap ;todo :e $HOME/code/todo<CR>
 nnoremap <leader>W :set wrap!<CR>
 " }}}
 " Plugin/Vundle setup {{{
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
 Bundle 'gmarik/Vundle.vim'
+Bundle 'ervandew/supertab'
 Bundle 'Valloric/YouCompleteMe'
-Bundle 'scrooloose/syntastic'
+"Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
 Plugin 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
@@ -199,11 +198,13 @@ Bundle 'vim-pandoc/vim-pandoc'
 
 filetype plugin indent on
 filetype plugin on
+set omnifunc=syntaxcomplete#Complete
 "AutoPairs{{{
 let g:AutoPairsFlyMode = 1
 "}}}
 "YCM{{{
 let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_use_ultisnips_completer = 1
 "}}}
 "Session Management{{{
 let g:session_directory = "~/.vim/sessions"
@@ -229,32 +230,27 @@ let g:ctrlp_map = '<leader>t'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_regexp = 1
 "}}}
-" Surround.vim {{{2
+" Surround.vim {{{
 let g:surround_42 = "**\r**"
 nnoremap ** :exe "norm v$hS*"<cr>
 nnoremap __ :exe "norm v$hS_"<cr>
 vmap * S*
 vmap _ S_
 " }}}
-" UltiSnips {{{2
- function! g:UltiSnips_Complete()
- call UltiSnips#ExpandSnippet()
- if g:ulti_expand_res == 0
-     if pumvisible()
-         return "\<C-n>"
-     else
-         call UltiSnips#JumpForwards()
-         if g:ulti_jump_forwards_res == 0
-            return "\<TAB>"
-         endif
-     endif
- endif
- return ""
- endfunction
+" UltiSnips YCM and SuperTab Collab {{{
+let g:ycm_key_list_select_completion = ['<C-n>','<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>','<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
 
- au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
- let g:UltiSnipsJumpForwardTrigger="<tab>"
- let g:UltiSnipsListSnippets="<c-r><tab>"
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+" }}}
+" Syntastic {{{
+"let g:syntastic_java_javac_classpath = "./lib/*.jar\n./src\n."
+"let g:synastic_disabled_filetypes = "java"
+" }}}
+" 
 " }}}
 " Folding {{{
 
@@ -345,6 +341,7 @@ augroup ft_java
 
     au FileType java setlocal foldmethod=marker
     au FileType java setlocal foldmarker={,}
+    au FileType java cnoremap <buffer> pc :!javac %; java -cp . %:r<CR>
 augroup END
 
 " }}}

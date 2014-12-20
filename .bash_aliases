@@ -24,11 +24,21 @@ alias vimin='vim +PluginInstall +qall'
 alias vi='vim'
 alias rrc='source ~/.bashrc; source ~/.bash_aliases'
 fldrsave (){
-    tar cvfz "$1".tar.gz "$1"
+    tar zcvf "$1".tar.gz "$1"
 }
 md (){
-    rm ${1%\.m*d*}.html 2>/dev/null
-    ~/code/Markdown_1.0.1/Markdown.pl "$1" > ${1%\.m*d*}.html
+    if [ $# -ne 1 ]
+    then
+        printf "\nSorry only supports one file at a time\n\n"
+        return;
+    fi
+
+    fileName=${1%\.m*d*}
+
+    rm "$fileName".html "$fileName".tar.gz 2>/dev/null
+    ~/code/Markdown_1.0.1/Markdown.pl "$1" > "$fileName".html
+    zip "$fileName".zip "$fileName".html $1
+    tar cvfz "$fileName".tar.gz "$fileName".html $1
 }
 nand (){
     projDir=~/code/osproj;
