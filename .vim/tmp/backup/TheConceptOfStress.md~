@@ -1,0 +1,31 @@
+#The Concept of Stress
+
+##Introduction
+
+External Forces: Applied load, reactions, weight...
+* Traction forces: applied over an area (bodies in contact)
+* Body forces: act on all particles over the volume
+    * f: N/mm^3
+    * f = pb
+        * b: N/kg
+        * p: density
+
+
+Internal Forces: Internal shear, internal moments...
+*
+
+##What is Stress?
+
+* Stress is the **intensity** of the **internal force** at a **point**
+* The intensity (stress) is found by taking the ratio of force over area
+
+* The equivalent single force has three components
+* Component perpendicular to the section is called axial or normal
+* Component tangent to section is called shear or tangent
+
+##Components of Stress
+
+###Normal Stress
+
+###Shear Stress
+

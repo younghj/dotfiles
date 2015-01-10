@@ -1,0 +1,38 @@
+
+Descriptive Statistics - part of statistics concerned with describing, summarizing data
+
+GOAL:
+* Focusing on important features
+* Provide insight for analysis
+
+
+##Summary of Data (mean and variance)
+
+_Finite Population_ - countable
+_Conceptual Population_ - infinite/ not countable
+
+###Mean
+
+Sample Mean
+Xbar = sum of all elements in sample / n 
+n = # in sample
+
+Population mean
+μ = sum of all elements in population / N
+N = # in population
+
+
+###Variance
+
+Sample Variance
+s^2= sum((x_i - Xbar)^2)/(n-1)
+
+Population Variance
+ο^2= sum((x_i - μ)^2)/N
+
+_Why the difference in denominator?_
+* X_i(observation) tends to be closer to Xbar than to μ
+* (x_i - Xbar)^2 < (X_i - μ)^2
+    * Then divided by n-1 to compensate
+
+

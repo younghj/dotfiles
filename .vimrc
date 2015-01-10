@@ -1,5 +1,4 @@
 set nocompatible
-
 " Basic options {{{
 " Base setup {{{
 let maplocalleader="\\"
@@ -23,6 +22,8 @@ set hidden
 set nowrap
 set linebreak
 set backspace=indent,eol,start
+set spelllang=en_ca
+set wildignorecase
 
 set autoindent
 set copyindent
@@ -168,7 +169,7 @@ nmap ;vimset :e $HOME/.vimrc<CR>
 nmap ;vismet :e $HOME/.vimrc<CR>
 nnoremap j gj
 nnoremap k gk
-nmap ;todo :e $HOME/code/todo<CR>
+nmap ;todo :e $HOME/code/todo.md<CR>
 nnoremap <leader>W :set wrap!<CR>
 " }}}
 " Plugin/Vundle setup {{{
@@ -193,8 +194,10 @@ Plugin 'bling/vim-airline'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'sjl/badwolf'
-Bundle 'vim-pandoc/vim-pandoc-syntax'
 Bundle 'vim-pandoc/vim-pandoc'
+Bundle 'vim-pandoc/vim-pandoc-syntax'
+Bundle 'vim-pandoc/vim-pandoc-after'
+Bundle 'xuhdev/SingleCompile'
 
 filetype plugin indent on
 filetype plugin on
@@ -250,11 +253,15 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 "let g:syntastic_java_javac_classpath = "./lib/*.jar\n./src\n."
 "let g:synastic_disabled_filetypes = "java"
 " }}}
-" 
+" SingleCompile {{{
+nnoremap ;sc :SCCompileRun<CR>
+nnoremap ;sv :SCViewResult<CR>
+" }}}
+
 " }}}
 " Folding {{{
 
-set foldlevelstart=1
+set foldlevelstart=2
 
 " Space to toggle folds.
 nnoremap <Space> za
@@ -273,7 +280,7 @@ nnoremap zO zczO
 " This mapping wipes out the z mark, which I never use.
 "
 " I use :sus for the rare times I want to actually background Vim.
-nnoremap <c-z> mzzMzvzz15<c-e>`z
+nnoremap <c-s-z> mzzMzvzz15<c-e>`z
 
 
 " }}}
@@ -341,7 +348,7 @@ augroup ft_java
 
     au FileType java setlocal foldmethod=marker
     au FileType java setlocal foldmarker={,}
-    au FileType java cnoremap <buffer> pc :!javac %; java -cp . %:r<CR>
+    au FileType java cnoremap <buffer> pc :w<cr>:!javac %; java -cp . %:r<CR>
 augroup END
 
 " }}}
@@ -391,6 +398,11 @@ augroup ft_markdown
 
     au Filetype markdown nnoremap <buffer> <localleader>p VV:'<,'>!python -m json.tool<cr>
     au Filetype markdown vnoremap <buffer> <localleader>p :!python -m json.tool<cr>
+    au Filetype markdown set spell digraph
+    au Filetype markdown inoremap <C-z> <Esc>[s1z=gi
+    au Filetype markdown nnoremap <C-z> [sz=
+    au Filetype markdown inoremap <C-k> <C-k>*
+
 augroup END
 
 " }}}
@@ -416,7 +428,7 @@ augroup ft_python
     au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
 
     au FileType python iabbrev <buffer> afo assert False, "Okay"
-    au FileType python cnoremap <buffer> pc :!python %<CR>
+    au FileType python cnoremap <buffer> pc :w<cr>:!python %<CR>
 augroup END
 
 " }}}

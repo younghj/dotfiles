@@ -1,3 +1,41 @@
+codeDir=~/code/soemthign
+fldrsave (){
+    tar zcvf "$1".tar.gz "$1"
+}
+md (){
+    if [ $# -ne 1 ]
+    then
+        printf "\nSorry only supports one file at a time\n\n"
+        return;
+    fi
+
+    fileName=${1%\.m*d*}
+
+    rm "$fileName".html "$fileName".tar.gz 2>/dev/null
+    "$codeDir"/Markdown_1.0.1/Markdown.pl "$1" > "$fileName".html
+    zip "$fileName".zip "$fileName".html $1
+    tar cvfz "$fileName".tar.gz "$fileName".html $1
+}
+nand (){
+    projDir="$codeDir"/osproj;
+    if [ $# -ne 3 ] 
+    then
+        printf "\nProgram List:\nasm: Assembler\ncpu: CPU Emulator\nhds: Hardware Simulator\njcp: Jack Compiler\nvme: VM Emulator\n\n";
+        printf "Format:\nnand [File Number] \"[Name/Pattern of File]\" [Program]\n\n"
+        return;
+    fi
+
+    cd "$projDir"/tools;
+    echo;
+    file="$projDir"/projects/"$1"/"$2";
+    for i in $file; do
+        echo $i;
+        sh "$3" "$i";
+        echo;
+    done
+}
+
+
 alias cls='clear'
 alias update='aptitude update'
 alias ins='aptitude install'
@@ -23,38 +61,5 @@ alias vimspeed='cd ~;rm vim.log; vim --startuptime vim.log'
 alias vimin='vim +PluginInstall +qall'
 alias vi='vim'
 alias rrc='source ~/.bashrc; source ~/.bash_aliases'
-fldrsave (){
-    tar zcvf "$1".tar.gz "$1"
-}
-md (){
-    if [ $# -ne 1 ]
-    then
-        printf "\nSorry only supports one file at a time\n\n"
-        return;
-    fi
-
-    fileName=${1%\.m*d*}
-
-    rm "$fileName".html "$fileName".tar.gz 2>/dev/null
-    ~/code/Markdown_1.0.1/Markdown.pl "$1" > "$fileName".html
-    zip "$fileName".zip "$fileName".html $1
-    tar cvfz "$fileName".tar.gz "$fileName".html $1
-}
-nand (){
-    projDir=~/code/osproj;
-    if [ $# -ne 3 ] 
-    then
-        printf "\nProgram List:\nasm: Assembler\ncpu: CPU Emulator\nhds: Hardware Simulator\njcp: Jack Compiler\nvme: VM Emulator\n\n";
-        printf "Format:\nnand [File Number] \"[Name/Pattern of File]\" [Program]\n\n"
-        return;
-    fi
-
-    cd "$projDir"/tools;
-    echo;
-    file="$projDir"/projects/"$1"/"$2";
-    for i in $file; do
-        echo $i;
-        sh "$3" "$i";
-        echo;
-    done
-}
+alias safe='cd $codeDir/safe'
+alias todo='vim $codeDir/todo.md'

@@ -1,6 +1,6 @@
-" ~/.vim/sessions/vimrc.vim:
+" ~/.vim/sessions/vimrcs.vim:
 " Vim session script.
-" Created by session.vim 2.7 on 06 January 2015 at 06:40:16.
+" Created by session.vim 2.7 on 06 January 2015 at 06:40:09.
 " Open this file in Vim and run :source % to restore your session.
 
 set guioptions=aegimrLtT

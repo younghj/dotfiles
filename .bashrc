@@ -23,7 +23,7 @@ fi
 export VISUAL=vim
 export EDITOR=$VISUAL
 
-set completion-ignore-case on
+set completion-ignore-case On
 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-armel
 export PATH=$PATH:$JAVA_HOME/bin
 export PATH=$HOME/local/bin:$PATH
