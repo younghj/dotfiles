@@ -203,7 +203,8 @@ filetype plugin indent on
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 "AutoPairs{{{
-let g:AutoPairsFlyMode = 1
+let g:AutoPairsFlyMode = 0
+let g:AutoPairsShortcutBackInsert = '<M-b>'
 "}}}
 "YCM{{{
 let g:ycm_min_num_of_chars_for_completion = 2

@@ -1,6 +1,9 @@
-codeDir=~/code/soemthign
+codeDir=/sdcard/code/
 fldrsave (){
     tar zcvf "$1".tar.gz "$1"
+}
+tarx (){
+    tar zxvf "$1"
 }
 md (){
     if [ $# -ne 1 ]
@@ -25,12 +28,37 @@ nand (){
         return;
     fi
 
+    program=""
+
+    case $3 in
+        hds)
+            program="HardwareSimulator.sh"
+            ;;
+        asm)
+            program="Assembler.sh"
+            ;;
+        cpu)
+            program="CPUEmulator.sh"
+            ;;
+        jcp)
+            program="JackCompiler.sh"
+            ;;
+        vme)
+            program="VMEmulator.sh"
+            ;;
+        *)
+            printf "\nProgram List:\nasm: Assembler\ncpu: CPU Emulator\nhds: Hardware Simulator\njcp: Jack Compiler\nvme: VM Emulator\n\n";
+            printf "Format:\nnand [File Number] \"[Name/Pattern of File]\" [Program]\n\n"
+            return;
+            ;;
+    esac
+
     cd "$projDir"/tools;
     echo;
     file="$projDir"/projects/"$1"/"$2";
     for i in $file; do
         echo $i;
-        sh "$3" "$i";
+        sh "$program" "$i";
         echo;
     done
 }

@@ -253,9 +253,6 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 "let g:syntastic_java_javac_classpath = "./lib/*.jar\n./src\n."
 "let g:synastic_disabled_filetypes = "java"
 " }}}
-" Pandoc {{{
-let g:pandoc#after#modules#enabled = ["supertab","ultisnips"]
-" }}}
 " SingleCompile {{{
 nnoremap ;sc :SCCompileRun<CR>
 nnoremap ;sv :SCViewResult<CR>
