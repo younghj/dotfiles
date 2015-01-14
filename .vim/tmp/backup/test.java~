@@ -1,0 +1,16 @@
+import java.util.Scanner;
+
+public class test {
+    public static void main(String[] args) {
+        Scanner keyboard = new Scanner(System.in);
+
+        String soemthing = keyboard.next();
+        double ese = keyboard.nextDouble();
+
+        boolean t1 = (soemthing == "yes");
+        boolean t2 = (ese == 5);
+
+        System.out.println(t1);
+        System.out.println(t2);
+    }
+}

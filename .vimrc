@@ -60,12 +60,13 @@ set background=dark
 set ff=unix
 set so=999
 set foldmethod=marker
+set timeoutlen=1000 ttimeoutlen=0
 
 " Time out on key codes but not mappings
 " Basically this makes terminal Vim work sanely
- "set notimeout
- "set ttimeout
- "set ttimeoutlen=10
+"set notimeout
+"set ttimeout
+"set ttimeoutlen=10
 
 " Save when losing focus
 au FocusLost * :silent! wall
@@ -111,13 +112,13 @@ set undofile
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
-   call mkdir(expand(&undodir), "p")
+    call mkdir(expand(&undodir), "p")
 endif
 if !isdirectory(expand(&backupdir))
-   call mkdir(expand(&backupdir), "p")
+    call mkdir(expand(&backupdir), "p")
 endif
 if !isdirectory(expand(&directory))
-   call mkdir(expand(&directory), "p")
+    call mkdir(expand(&directory), "p")
 endif
 " }}} 
 " ColorScheme{{{
@@ -128,32 +129,32 @@ colorscheme hipster
 "
 " Reload the colorscheme whenever we write the file.
 "augroup color_dev
-    "au!
-    "au BufWritePost badwolf.vim color badwolf
+"au!
+"au BufWritePost badwolf.vim color badwolf
 "augroup END
 " }}}
 " Basic Autocmd Groups {{{
 augroup markup_lang
-   au!
-   au filetype html,xml set listchars-=tab:>.
+    au!
+    au filetype html,xml set listchars-=tab:>.
 augroup END
 
 augroup line_cont
-   au!
-   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    au!
+    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 augroup END
 
 augroup side_number
-   au!
-   "au InsertEnter * :set number
-   "au InsertLeave * :set relativenumber
-   au BufEnter * :set number
-   au BufEnter * :set relativenumber
+    au!
+    "au InsertEnter * :set number
+    "au InsertLeave * :set relativenumber
+    au BufEnter * :set number
+    au BufEnter * :set relativenumber
 augroup END
 
 augroup syntaxChange
-   au!
-   au BufRead,BufNewFile *.m?d? set filetype=markdown
+    au!
+    au BufRead,BufNewFile *.m?d? set filetype=markdown
 augroup END
 " }}}
 " }}}
@@ -179,7 +180,8 @@ call vundle#rc()
 
 Bundle 'gmarik/Vundle.vim'
 Bundle 'ervandew/supertab'
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/MatchTagAlways'
 "Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
 Plugin 'SirVer/ultisnips'
@@ -198,6 +200,9 @@ Bundle 'vim-pandoc/vim-pandoc'
 Bundle 'vim-pandoc/vim-pandoc-syntax'
 Bundle 'vim-pandoc/vim-pandoc-after'
 Bundle 'xuhdev/SingleCompile'
+Bundle 'yegappan/mru'
+Bundle 'Shougo/neocomplete'
+"Bundle 'cespare/vjde'
 
 filetype plugin indent on
 filetype plugin on
@@ -209,6 +214,16 @@ let g:AutoPairsShortcutBackInsert = '<M-b>'
 "YCM{{{
 let g:ycm_min_num_of_chars_for_completion = 2
 let g:ycm_use_ultisnips_completer = 1
+"}}}
+"Neocomplete {{{
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 2
+let g:neocomplete#enable_auto_select = 0
+let g:neocomplete#auto_completion_start_length = 2
+let g:neocomplete#disable_auto_complete = 1
+
 "}}}
 "Session Management{{{
 let g:session_directory = "~/.vim/sessions"
@@ -255,8 +270,8 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 "let g:synastic_disabled_filetypes = "java"
 " }}}
 " SingleCompile {{{
-nnoremap ;sc :SCCompileRun<CR>
-nnoremap ;sv :SCViewResult<CR>
+nnoremap ;sc<CR> :SCCompileRun<CR>
+nnoremap ;sv<CR> :SCViewResult<CR>
 " }}}
 
 " }}}
@@ -350,6 +365,7 @@ augroup ft_java
     au FileType java setlocal foldmethod=marker
     au FileType java setlocal foldmarker={,}
     au FileType java cnoremap <buffer> pc :w<cr>:!javac %; java -cp . %:r<CR>
+    au FileType java setlocal omnifunc=javacomplete#Complete
 augroup END
 
 " }}}
