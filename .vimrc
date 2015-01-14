@@ -180,7 +180,7 @@ call vundle#rc()
 
 Bundle 'gmarik/Vundle.vim'
 Bundle 'ervandew/supertab'
-"Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'Valloric/MatchTagAlways'
 "Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
@@ -201,12 +201,14 @@ Bundle 'vim-pandoc/vim-pandoc-syntax'
 Bundle 'vim-pandoc/vim-pandoc-after'
 Bundle 'xuhdev/SingleCompile'
 Bundle 'yegappan/mru'
-Bundle 'Shougo/neocomplete'
+"Bundle 'Shougo/neocomplete'
 "Bundle 'cespare/vjde'
+Bundle 'marijnh/tern_for_vim' "go to tern_for_vim dir after vimin and do npm install
 
 filetype plugin indent on
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
+
 "AutoPairs{{{
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '<M-b>'
@@ -214,16 +216,7 @@ let g:AutoPairsShortcutBackInsert = '<M-b>'
 "YCM{{{
 let g:ycm_min_num_of_chars_for_completion = 2
 let g:ycm_use_ultisnips_completer = 1
-"}}}
-"Neocomplete {{{
-let g:acp_enableAtStartup = 0
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 2
-let g:neocomplete#enable_auto_select = 0
-let g:neocomplete#auto_completion_start_length = 2
-let g:neocomplete#disable_auto_complete = 1
-
+let g:ycm_cache_omnifunc = 1
 "}}}
 "Session Management{{{
 let g:session_directory = "~/.vim/sessions"
@@ -388,6 +381,7 @@ augroup ft_javascript
     " Prettify a hunk of JSON with <localleader>p
     au FileType javascript nnoremap <buffer> <localleader>p ^vg_:!python -m json.tool<cr>
     au FileType javascript vnoremap <buffer> <localleader>p :!python -m json.tool<cr>
+    au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 augroup END
 
 " }}}
