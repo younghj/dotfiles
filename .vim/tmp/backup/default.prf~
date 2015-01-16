@@ -1,0 +1,6 @@
+# Unison preferences file
+times=true
+owner=true
+group=true
+ignore = Path {}
+ignore = Path {.ttxfolder}

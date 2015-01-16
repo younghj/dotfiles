@@ -203,7 +203,10 @@ Bundle 'xuhdev/SingleCompile'
 Bundle 'yegappan/mru'
 "Bundle 'Shougo/neocomplete'
 "Bundle 'cespare/vjde'
-Bundle 'marijnh/tern_for_vim' "go to tern_for_vim dir after vimin and do npm install
+Bundle 'marijnh/tern_for_vim'
+"go to tern_for_vim dir after vimin and do npm install
+Bundle 'vim-scripts/javacomplete'
+Bundle 'FencView.vim'
 
 filetype plugin indent on
 filetype plugin on
@@ -265,6 +268,9 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 " SingleCompile {{{
 nnoremap ;sc<CR> :SCCompileRun<CR>
 nnoremap ;sv<CR> :SCViewResult<CR>
+
+cnoremap <buffer> sc :SCCompileRun<CR>
+cnoremap <buffer> sv :SCViewResult<CR>
 " }}}
 
 " }}}
@@ -359,6 +365,7 @@ augroup ft_java
     au FileType java setlocal foldmarker={,}
     au FileType java cnoremap <buffer> pc :w<cr>:!javac %; java -cp . %:r<CR>
     au FileType java setlocal omnifunc=javacomplete#Complete
+    au FileType java setlocal completefunc=javacomplete#CompleteParamsInfo
 augroup END
 
 " }}}
