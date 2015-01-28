@@ -203,10 +203,10 @@ Bundle 'xuhdev/SingleCompile'
 Bundle 'yegappan/mru'
 "Bundle 'Shougo/neocomplete'
 "Bundle 'cespare/vjde'
-Bundle 'marijnh/tern_for_vim'
+"Bundle 'marijnh/tern_for_vim'
 "go to tern_for_vim dir after vimin and do npm install
-Bundle 'vim-scripts/javacomplete'
-Bundle 'FencView.vim'
+"Bundle 'vim-scripts/javacomplete'
+"Bundle 'FencView.vim'
 
 filetype plugin indent on
 filetype plugin on

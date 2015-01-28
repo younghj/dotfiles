@@ -1,4 +1,5 @@
-codeDir=~/code/
+codeDir=/sdcard/code/
+dotfileDir=$HOME/dotfiles/
 fldrsave (){
     tar zcvf "$1".tar.gz "$1"
 }
@@ -67,8 +68,10 @@ nand (){
 alias cls='clear'
 alias update='aptitude update'
 alias ins='aptitude install'
-alias la='ls -a'
-alias ll='ls -al'
+alias l='ls -CF'
+alias la='ls -A'
+alias ll='ls -alF'
+alias ls='ls --color=auto'
 alias vimset=' vim $HOME/.vimrc'
 alias vismet=' vim $HOME/.vimrc'
 alias adlias='vim $HOME/.bash_aliases'
