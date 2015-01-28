@@ -1,5 +1,5 @@
-codeDir=/sdcard/code/
-dotfileDir=$HOME/dotfiles/
+codeDir=/sdcard/code
+dotfileDir=$HOME/dotfiles
 fldrsave (){
     tar zcvf "$1".tar.gz "$1"
 }
@@ -66,8 +66,8 @@ nand (){
 
 
 alias cls='clear'
-alias update='aptitude update'
-alias ins='aptitude install'
+alias update='sudo apt-get update'
+alias ins='sudo apt-get install'
 alias l='ls -CF'
 alias la='ls -A'
 alias ll='ls -alF'
@@ -78,13 +78,13 @@ alias adlias='vim $HOME/.bash_aliases'
 alias search='apt-cache search'
 alias pkg='apt-cache show'
 alias pkgd='apt-cache showpkg'
-alias rem='aptitude remove'
-alias clean='aptitude clean'
+alias rem='sudo apt-get remove'
+alias clean='sudo apt-get clean'
 alias elink='elinks'
 alias mkvimtut='cd $HOME;cp -if vimtutor temptutor'
 alias pkgs='dpkg --get-selections'
 alias temptutor='vim temptutor'
-alias saverc='cd $HOME;mkdir -p /sdcard/dotfiles/.vim/; cp .vimrc /sdcard/dotfiles/; cp .bashrc /sdcard/dotfiles/; cp .bash_aliases /sdcard/dotfiles/; cd .vim/;cp -rf !(bundle) /sdcard/dotfiles/.vim/; cd /sdcard/dotfiles; git add .vim; git add .'
+alias saverc='cd $HOME;mkdir -p $dotfileDir/.vim/; cp -rf -t $dotfileDir .vimrc .bashrc .bash_aliases; cd .vim/;cp -rf !(bundle) $dotfileDir/.vim/; cd $dotfileDir; git add .vim; git add .'
 alias dc='cd'
 alias s='ls'
 alias gitconfig='git config --global credential.helper wincred'

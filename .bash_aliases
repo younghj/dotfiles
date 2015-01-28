@@ -1,4 +1,4 @@
-codeDir=/sdcard/code
+codeDir=~/code
 dotfileDir=$HOME/dotfiles
 fldrsave (){
     tar zcvf "$1".tar.gz "$1"
@@ -66,8 +66,8 @@ nand (){
 
 
 alias cls='clear'
-alias update='aptitude update'
-alias ins='aptitude install'
+alias update='sudo apt-get update'
+alias ins='sudo apt-get install'
 alias l='ls -CF'
 alias la='ls -A'
 alias ll='ls -alF'
@@ -78,8 +78,8 @@ alias adlias='vim $HOME/.bash_aliases'
 alias search='apt-cache search'
 alias pkg='apt-cache show'
 alias pkgd='apt-cache showpkg'
-alias rem='aptitude remove'
-alias clean='aptitude clean'
+alias rem='sudo apt-get remove'
+alias clean='sudo apt-get clean'
 alias elink='elinks'
 alias mkvimtut='cd $HOME;cp -if vimtutor temptutor'
 alias pkgs='dpkg --get-selections'
@@ -96,4 +96,3 @@ alias rrc='source ~/.bashrc; source ~/.bash_aliases'
 alias safe='cd $codeDir/safe'
 alias todo='vim $codeDir/todo.md'
 alias cds='cd $codeDir'
-alias snippets='cd ~/.vim/bundle/vim-snippets/UltiSnips'
