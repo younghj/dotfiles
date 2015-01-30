@@ -1,4 +1,4 @@
-codeDir=/sdcard/code
+codeDir=~/code
 dotfileDir=$HOME/dotfiles
 fldrsave (){
     tar zcvf "$1".tar.gz "$1"
@@ -96,4 +96,3 @@ alias rrc='source ~/.bashrc; source ~/.bash_aliases'
 alias safe='cd $codeDir/safe'
 alias todo='vim $codeDir/todo.md'
 alias cds='cd $codeDir'
-alias snippets='cd ~/.vim/bundle/vim-snippets/UltiSnips'
