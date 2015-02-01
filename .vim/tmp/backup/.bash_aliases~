@@ -1,5 +1,6 @@
 codeDir=~/code
 dotfileDir=$HOME/dotfiles
+musicDir=~/Downloads/chromeSongs
 fldrsave (){
     tar zcvf "$1".tar.gz "$1"
 }
@@ -68,6 +69,7 @@ nand (){
 alias cls='clear'
 alias update='sudo apt-get update'
 alias ins='sudo apt-get install'
+alias upgrade='sudo apt-get upgrade'
 alias l='ls -CF'
 alias la='ls -A'
 alias ll='ls -alF'
@@ -78,7 +80,11 @@ alias adlias='vim $HOME/.bash_aliases'
 alias search='apt-cache search'
 alias pkg='apt-cache show'
 alias pkgd='apt-cache showpkg'
-alias rem='sudo apt-get remove'
+alias rem='sudo apt-get autoremove'
+alias dl='cd ~/Downloads'
+alias dls='dl;ls'
+alias wrk='cd $codeDir/workspace'
+alias hack='cd $codeDir/hack'
 alias clean='sudo apt-get clean'
 alias elink='elinks'
 alias mkvimtut='cd $HOME;cp -if vimtutor temptutor'
@@ -96,3 +102,5 @@ alias rrc='source ~/.bashrc; source ~/.bash_aliases'
 alias safe='cd $codeDir/safe'
 alias todo='vim $codeDir/todo.md'
 alias cds='cd $codeDir'
+alias pdf='okular'
+alias opd='xdg-open'

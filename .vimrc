@@ -3,7 +3,9 @@ set nocompatible
 " Base setup {{{
 let maplocalleader="\\"
 let mapleader=","
-"set encoding=utf-8
+set encoding=utf-8
+set mouse-=a
+set digraph
 
 set showmode
 set showcmd
@@ -272,8 +274,8 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 "nnoremap ;sc<CR> :SCCompileRun<CR>
 "nnoremap ;sv<CR> :SCViewResult<CR>
 
-cnoremap <buffer> sc<CR> :SCCompileRun<CR>
-cnoremap <buffer> sv<CR> :SCViewResult<CR>
+cnoremap <buffer> sc<TAB> :SCCompileRun<CR>
+cnoremap <buffer> sv<TAB> :SCViewResult<CR>
 " }}}
 
 " }}}

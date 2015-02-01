@@ -1,0 +1,89 @@
+#include <iostream> //cout, cin, cerr, clog
+#include <string> //string and endl
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+    cout << "Hello world";
+    return 0;
+}
+/*
+char
+string
+
+
+short
+int
+long
+long long
+
+unsigned/(signed)
+
+float
+double
+long double
+
+bool
+deltype(foo) //gets type of foo
+auto foo = bar //makes foo the type of bar
+
+int* //pointer to an int
+
+const //adding this before the variable type makes it a constant
+
+#define var value // assigns value to var
+
+ */
+
+
+/*
+cond ? ifTrue : ifFalse
+a = (b=3, b+2) // a will end up equaling 5 and b will be 3
+
+//Bitwise Op
+& AND
+| OR
+^ XOR
+~ NOT
+<< Shift Bits Left
+>> Shift Bits Right
+
+//Conversion
+float b =3.1;
+int a = (int) b;
+
+
+sizeof(var) //returns size of var in bytes
+
+ */
+
+/*
+Control flow
+
+if
+while
+do-while
+
+for(init;cond;increm)
+for(init:range) //the variable in init will iterate through the array in range
+
+//Jumps
+break //ends the loop
+continue //ends that iteration of loop
+goto TARGET //go to point of code in loop with TARGET:\n statement
+switch(var){ case val: default: }
+
+//Function
+int addInt(int a, int b){
+    int r;
+    r = a+b;
+    return r;
+}
+
+int a = 3;
+void addOne(int& x){ //adding const before int& would make it act like pass by value (use for large datatypes)
+    a++;
+}
+addOne(a);// a will equal to 4
+ */
+
