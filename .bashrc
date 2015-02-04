@@ -29,6 +29,8 @@ export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 export PATH=$JAVA_HOME/bin:$PATH
 #export PATH=$HOME/local/bin:$PATH
 
+HISTSIZE=5000
+HISTFILESIZE=1000000
 CLICOLOR=1
 
 shopt -s extglob 
