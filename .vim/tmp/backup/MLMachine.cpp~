@@ -1,0 +1,76 @@
+#include "MLMachine.h"
+MLMachine::MLMachine(){
+    _first=false;
+    _trainingRate=0;
+    for(int i=0;i<8;i++) _hypothesis[i]=0;
+}
+
+MLMachine::MLMachine(bool first, double rate)
+{
+    _first = first;
+    _trainingRate = rate;
+    for(int i=0;i<8;i++) _hypothesis[i]=0.5;
+}
+
+node* MLMachine::getSuccessors(node * currBoard){
+    root* nodeTracker = new root;
+    node* outNode = new node;
+    int* board = currBoard->board;
+
+    nodeTracker->data = 0;
+    nodeTracker->head = NULL;
+    nodeTracker->tail = NULL;
+
+    int insert = _first ? 1 : -1;
+    for(int i=0; i<9; i++){
+        if(board[i]==0){
+            node* newNode = new node;
+
+            int* tempBoard = new int;
+            int* tempTracker = new int;
+            int* tempZeros = new int;
+
+            tempBoard = copyArray(board,9);
+            tempBoard[i] = insert;
+
+            tempTracker = copyArray(currBoard->tracker,8);
+            tempZeros = copyArray(currBoard->zeros,8);
+
+            tempTracker[i/3] += insert;
+            tempZeros[i/3]--;
+
+            tempTracker[(i%3)+3] += insert;
+            tempZeros[(i%3)+3]--;
+
+            if(i/4.0 == i/4){
+                tempTracker[6] += insert;
+                tempZeros[6]--;
+            }
+            if(i%2==0 && i < 7){
+                tempTracker[7] += insert;
+                tempZeros[7]--;
+            }
+
+            newNode->board = tempBoard;
+            newNode->tracker = tempTracker;
+            newNode->zeros = tempZeros;
+
+            if(nodeTracker->head == NULL)
+                nodeTracker->head = newNode;
+            if(nodeTracker->tail != NULL)
+                nodeTracker->tail->next = newNode;
+
+            nodeTracker->tail = newNode;
+        }
+    }
+    outNode = nodeTracker->head;
+    delete nodeTracker;
+
+    return outNode; 
+}
+
+double MLMachine::evaluateBoard(node * evalBoard){
+    return 1.2;
+}
+
+node* MLMachine::getFeatures

@@ -1,0 +1,23 @@
+#ifndef MLMACHINE_H
+#define MLMACHINE_H
+
+#include "Global.h"
+
+class MLMachine
+{
+
+public:
+    MLMachine();
+    MLMachine(bool first, double rate);
+    node* getSuccessors(node * currBoard);
+    double evaluateBoard(node * evalBoard);
+    node* getFeatures(int * tracker, int * zeros);
+
+private:
+    /* data */
+    double _trainingRate;
+    double _hypothesis[8];
+    bool _first;
+};
+
+#endif

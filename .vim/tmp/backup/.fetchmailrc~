@@ -1,0 +1,11 @@
+poll pop.gmail.com                   
+with proto POP3                      
+user "jung4351"        
+there with password "younghj6364351"        
+is "tommy" here                              
+mda "/usr/bin/procmail -d %T"        
+options                                                             
+no keep                                 
+ssl                                  
+sslcertck                            
+sslcertpath /etc/ssl/certs

@@ -1,0 +1,24 @@
+import random
+
+dict = ['ECON', 'STATISTICS', 'ODE', 'MODS', 'Digital Logic', 'Dynamics'];
+days = ['Mon - ', 'Tues - ', 'Wed - ', 'Thurs - ', 'Sat - ', 'Sun - '];
+
+array = random.sample(range(0,6),6);
+
+noneSame = False;
+
+while not(noneSame):
+    test = False;
+    array2 = random.sample(range(0,6),6);
+    for x in xrange(0,6):
+        if array[x] == array2[x] :
+            test = True;
+    if not(test) :
+        noneSame = True
+    else:
+        test = False
+
+print array, array2
+
+for x in xrange(0,6):
+    print days[x], dict[array[x]]," -----", dict[array2[x]]

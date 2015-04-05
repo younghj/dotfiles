@@ -29,9 +29,16 @@ export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 export PATH=$JAVA_HOME/bin:$PATH
 #export PATH=$HOME/local/bin:$PATH
 
-HISTSIZE=500000
+HISTSIZE=5000
 HISTFILESIZE=1000000
 CLICOLOR=1
 
 shopt -s extglob 
 FIGNORE=.class:.out:.tst:.cmp
+source /opt/ros/indigo/setup.bash
+source /home/tommy/code/workspace/uwrobotics.uwmrt/Software/Workspace/devel/setup.sh
+export TERM="xterm-256color"
+tmux source-file ~/.tmux.conf
+
+CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:~/libs/cppLibs/dlib-18.13
+export CPLUS_INCLUDE_PATH
