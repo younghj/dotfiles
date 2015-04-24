@@ -9,15 +9,24 @@ class MLMachine
 public:
     MLMachine();
     MLMachine(bool first, double rate);
-    node* getSuccessors(node * currBoard);
-    double evaluateBoard(node * evalBoard);
-    node* getFeatures(int * tracker, int * zeros);
+    void updateHypothesis(root * history);
+    int choose(node * currBoard);
+    double* getHypothesis();
+    void setHypothesis();
+
 
 private:
     /* data */
     double _trainingRate;
     double _hypothesis[8];
     bool _first;
+
+    int getWinner(node * evalBoard);
+    node* getSuccessors(node * currBoard);
+    double evaluateBoard(node * evalBoard);
+    int* getFeatures(node * featBoard);
+    trainingSet* getTrainingSet(root * history);
+    double absol(double n);
 };
 
 #endif

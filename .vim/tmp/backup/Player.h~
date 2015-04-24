@@ -6,19 +6,22 @@
 class Player
 {
 public:
-    int choose();
+    int choose(node * currBoard);
     Player(bool firstPlayer);
-    Player(int type, bool firstPlayer);
+    Player(int type, bool firstPlayer, double trainingRate);
     int getType();
     bool isPlayerOne();
+    double* getMLHypothesis();
+
+    MLMachine brain;
 
 private:
     int chooseRandom();
     int chooseHuman();
-    int chooseML();
+    int chooseML(node * currBoard);
 
-    int type;
-    bool isFirstPlayer;
+    int _type;
+    bool _isFirstPlayer;
 };
 
 #endif

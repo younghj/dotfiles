@@ -17,6 +17,8 @@ aspell						install
 aspell-en					install
 at-spi2-core					install
 attr						install
+autoconf					install
+automake					install
 autotools-dev					install
 avrdude						install
 base-files					install
@@ -94,6 +96,7 @@ docutils-doc					install
 dosfstools					install
 dpkg						install
 dpkg-dev					install
+dropbox						install
 e2fslibs:amd64					install
 e2fsprogs					install
 ed						install
@@ -185,6 +188,7 @@ gnome-keyring					install
 gnome-system-monitor				deinstall
 gnome-user-guide				install
 gnupg						install
+gnusim8085					install
 gpgv						install
 graphviz					install
 grep						install
@@ -217,6 +221,7 @@ gvfs-common					install
 gvfs-daemons					install
 gvfs-libs:amd64					install
 gxmessage					install
+gyazo						install
 gzip						install
 hardening-includes				install
 hddtemp						install
@@ -232,6 +237,8 @@ icoutils					install
 icu-devtools					install
 ifupdown					install
 im-config					install
+imagemagick					install
+imagemagick-common				install
 indicator-application				install
 indicator-sound					install
 init-system-helpers				install
@@ -555,6 +562,8 @@ libdigest-hmac-perl				install
 libdigitizer					install
 libdirac-encoder0:amd64				install
 libdirectfb-1.2-9:amd64				install
+libdjvulibre-text				install
+libdjvulibre21:amd64				install
 libdlrestrictions1				install
 libdpkg-perl					install
 libdrm-dev:amd64				install
@@ -937,6 +946,7 @@ liblodo3.0					install
 liblog-message-simple-perl			install
 liblog4cxx10					install
 liblog4cxx10-dev				install
+liblqr-1-0:amd64				install
 libltdl-dev:amd64				install
 libltdl7:amd64					install
 libltdl7:i386					install
@@ -953,6 +963,9 @@ liblzma5:i386					install
 liblzo2-2:amd64					install
 libmad0:amd64					install
 libmagic1:amd64					install
+libmagickcore5:amd64				install
+libmagickcore5-extra:amd64			install
+libmagickwand5:amd64				install
 libmail-sendmail-perl				install
 libmailtools-perl				install
 libmatroska6:amd64				install
@@ -1003,6 +1016,7 @@ libnetcdf-dev					install
 libnetcdfc++4					install
 libnetcdfc7					install
 libnetcdff5					install
+libnetpbm10					install
 libnettle4:amd64				install
 libnewt0.52:amd64				install
 libnih-dbus1:amd64				install
@@ -1359,6 +1373,7 @@ libshout3:amd64					install
 libsidplay1					install
 libsidplay2					install
 libsigc++-2.0-0c2a:amd64			deinstall
+libsigsegv2:amd64				install
 libsilly					install
 libslang2:amd64					install
 libslv2-9					install
@@ -1710,6 +1725,7 @@ lsb-base					install
 lsb-release					install
 lua5.2						install
 lynx-cur					install
+m4						install
 make						install
 makedev						install
 makerbot-driver					install
@@ -1744,6 +1760,7 @@ nepomuk-core-runtime				install
 net-tools					install
 netbase						install
 netcat-openbsd					install
+netpbm						install
 netsurf-gtk					deinstall
 notification-daemon				install
 ntfs-3g						install
@@ -2242,6 +2259,7 @@ shared-desktop-ontologies			install
 shared-mime-info				install
 shiboken					install
 shimmer-themes					install
+silversearcher-ag				install
 sip-dev						install
 skype						deinstall
 smbclient					install

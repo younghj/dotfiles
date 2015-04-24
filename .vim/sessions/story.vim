@@ -1,6 +1,6 @@
-" ~/.vim/sessions/ml.vim:
+" ~/.vim/sessions/story.vim:
 " Vim session script.
-" Created by session.vim 2.7 on 24 April 2015 at 17:44:16.
+" Created by session.vim 2.7 on 23 April 2015 at 01:40:45.
 " Open this file in Vim and run :source % to restore your session.
 
 set guioptions=aegimrLtT
@@ -19,76 +19,41 @@ if &cp | set nocp | endif
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/code/workspace/ttt_tictactoe
+cd ~/code/workspace
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +4 Board.cpp
-badd +20 Board.h
-badd +9 Player.cpp
-badd +10 Player.h
-badd +32 main.cpp
-badd +32 Global.h
-badd +23 MLMachine.cpp
-badd +14 MLMachine.h
-badd +23 Global.cpp
+badd +0 my\ story.md
 argglobal
 silent! argdel *
-argadd MLMachine.cpp
-argadd MLMachine.h
-edit main.cpp
+argadd my\ story.md
+edit my\ story.md
 set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
 wincmd t
 set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 67 + 68) / 136)
-exe 'vert 2resize ' . ((&columns * 68 + 68) / 136)
 argglobal
-edit main.cpp
-setlocal fdm=marker
-setlocal fde=0
+setlocal fdm=expr
+setlocal fde=pandoc#folding#FoldExpr()
 setlocal fmr={{{,}}}
 setlocal fdi=#
 setlocal fdl=2
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 59 - ((15 * winheight(0) + 16) / 32)
+let s:l = 2 - ((1 * winheight(0) + 16) / 32)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-59
+2
 normal! 0
-wincmd w
-argglobal
-edit Player.cpp
-setlocal fdm=marker
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=2
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 10 - ((9 * winheight(0) + 16) / 32)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-10
-normal! 0
-wincmd w
-exe 'vert 1resize ' . ((&columns * 67 + 68) / 136)
-exe 'vert 2resize ' . ((&columns * 68 + 68) / 136)
+lcd ~/code/workspace
 tabnext 1
 if exists('s:wipebuf')
 "   silent exe 'bwipe ' . s:wipebuf
 endif
 " unlet! s:wipebuf
-set winheight=1 winwidth=20 shortmess=filnxtToO
+set winheight=1 winwidth=20 shortmess=filnxtToOc
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if file_readable(s:sx)
   exe "source " . fnameescape(s:sx)

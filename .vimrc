@@ -197,9 +197,9 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
-Bundle 'gmarik/Vundle.vim'
+Plugin 'gmarik/Vundle.vim' "need external
 Bundle 'ervandew/supertab'
-Bundle 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe' "need external
 Bundle 'Valloric/MatchTagAlways'
 "Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
@@ -222,6 +222,9 @@ Bundle 'xuhdev/SingleCompile'
 Bundle 'yegappan/mru'
 Bundle 'joequery/Stupid-EasyMotion'
 Bundle 'scrooloose/nerdtree'
+"Plugin 'rking/ag.vim' "need external
+Bundle 'reedes/vim-colors-pencil'
+
 "Bundle 'vim-scripts/LanguageTool'
 "Bundle 'majutsushi/tagbar'
 "Bundle 'Shougo/neocomplete'
@@ -231,7 +234,6 @@ Bundle 'scrooloose/nerdtree'
 "Bundle 'vim-scripts/javacomplete'
 "Bundle 'FencView.vim'
 
-Bundle 'reedes/vim-colors-pencil'
 
 filetype plugin indent on
 filetype plugin on
@@ -270,6 +272,11 @@ let g:ycm_cache_omnifunc = 1
 let g:ycm_server_keep_logfiles = 1
 let g:ycm_server_log_level = 'debug'
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
+"set completeopt-=preview
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+"let g:ycm_autoclose_preview_window_after_completion = 1
 "}}}
 
 "Session Management{{{
