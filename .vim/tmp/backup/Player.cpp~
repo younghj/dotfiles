@@ -1,5 +1,7 @@
 #include "Player.h"
 
+int smartRandHelper(node* board, int zeroPos);
+
 Player::Player(bool firstPlayer){
     _type = 0;
     _isFirstPlayer = firstPlayer;
@@ -19,7 +21,7 @@ double* Player::getMLHypothesis(){
 }
 
 void Player::setMLHypothesis(double *hyp){
-    brain.setHypothesis
+    brain.setHypothesis(hyp);
 }
 
 int Player::choose(node * currBoard){
@@ -28,11 +30,10 @@ int Player::choose(node * currBoard){
             return chooseHuman();
             break;
         case 2:
-            cout << "here" << currBoard;
             return chooseML(currBoard);
             break;
         default:
-            return chooseRandom();
+            return chooseRandom(currBoard);
     }
 }
 
@@ -44,8 +45,50 @@ bool Player::isPlayerOne(){
     return _isFirstPlayer;
 }
 
-int Player::chooseRandom(){
-    return rand() % 9;
+int Player::chooseRandom(node * currBoard){
+    int pos;
+    //drawNode(currBoard);
+    //if(rand()%2){
+    int track[5], counter=0;
+    for(int i =0; i<8;i++){
+        if(abs(currBoard->tracker[i])==2) track[counter++]=i;
+    }
+    if(counter==0) goto randChoose;
+    int availablePositions[5];
+    for(int i=0;i<counter;i++){
+        availablePositions[i]= smartRandHelper(currBoard,track[i]);
+    }
+    if(counter==1) return availablePositions[0];
+    return availablePositions[rand()%counter];
+    //}
+randChoose:
+    pos= rand()%9;
+    if(currBoard->board[pos]!=0) goto randChoose;
+    return pos;
+}
+
+int smartRandHelper(node * board,int zeroPos){
+    int pos=9;
+    int * testBoard = board->board;
+    if(zeroPos<3){
+        for(int i=zeroPos*3;i<zeroPos*3+3;i++){
+            if(testBoard[i]==0) pos=i; break;
+        }
+    }else if(zeroPos<6){
+        for(int i=zeroPos-3;i<zeroPos+7;i+=3){
+            if(testBoard[i]==0) pos=i; break;
+        }
+    }else if(zeroPos==6){
+        for(int i=0;i<9;i+=4){
+            if(testBoard[i]==0) pos=i; break;
+        }
+    }else{
+        for(int i=2;i<7;i+=2){
+            if(testBoard[i]==0) pos=i; break;
+        }
+    }
+
+    return pos;
 }
 
 int Player::chooseHuman(){
@@ -55,7 +98,7 @@ int Player::chooseHuman(){
 }
 
 int Player::chooseML(node * currBoard){
-    return brain.choose(currBoard);
+    int pos = brain.choose(currBoard);
+    //if(pos==9) return chooseRandom(currBoard);
+    return pos;
 }
-
-

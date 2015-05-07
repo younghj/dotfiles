@@ -12,6 +12,7 @@ public:
     int getType();
     bool isPlayerOne();
     double* getMLHypothesis();
+    void setMLHypothesis(double* hyp);
 
     MLMachine brain;
 

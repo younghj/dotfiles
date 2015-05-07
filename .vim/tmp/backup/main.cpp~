@@ -61,7 +61,7 @@ repeat:
     int win;
     Board board;
 
-    oneType = 0;
+    oneType = 2;
     twoType = 2;
 
     //cout << "Random:0 Human:1 ML:2" << endl;
@@ -119,13 +119,14 @@ choose:
     if(count<numGame)
         goto startGame;
     else if(test){
+        double* tempHyp;
         if(oneType==2 || (oneType==2&&twoType==2)) {
             ratio = scoreKeeper[0]/double(numGame) + scoreKeeper[2]*0.1/double(numGame);
-            double* tempHyp = one.getMLHypothesis
-            for(int i=0; i<8;i++)
+            tempHyp = one.getMLHypothesis();
         }
         else if(twoType==2) {
             ratio = scoreKeeper[1]/double(numGame) + scoreKeeper[2]*0.1/double(numGame);
+            tempHyp = two.getMLHypothesis();
         }
         else{
             ratio = 0;
@@ -138,6 +139,7 @@ choose:
             bestTwo= scoreKeeper[1];
             bestTie = scoreKeeper[2];
             consecutiveLow = 0;
+            for(int i=0; i<8;i++) bestHypothesis[i] = tempHyp[i];
         }else{
             consecutiveLow++;
         }
@@ -159,6 +161,48 @@ end:
 
     double elapsed = double(end-startTime)/CLOCKS_PER_SEC;
     cout << elapsed << endl;
+
+    bool play;
+    cout << "Do you want to play with the brain?(0 or 1)";
+    cin >> play;
+    if(!test) bestTraining = currRate;
+
+    if(play){
+        Player human(1,true,bestTraining), machine(2,false,bestTraining);
+
+startGame_play:
+
+        board.draw();
+
+        win=2;
+        while(win==2) {
+
+choose_play:
+            node* tail = board.getHistory()->tail;
+            //drawNode(tail);
+            position = (firstPlayerTurn?human:machine).choose(tail);
+
+            if(board.positionCheck(position)) goto choose_play;
+            board.setPosition(position, firstPlayerTurn);
+
+            board.draw();
+            firstPlayerTurn=!firstPlayerTurn;
+            win = board.win(firstPlayerTurn);
+        }
+
+        machine.brain.updateHypothesis(board.getHistory());
+
+        if(win == 0){
+            cout << "Tie!" << endl;
+        }
+        else{
+            cout << "Player " << (!firstPlayerTurn ? "1" : "2") << " won!" << endl;
+        }
+
+        board.resetBoard();
+        goto startGame_play;
+
+    }
 
     return 0;
 }
