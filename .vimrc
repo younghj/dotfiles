@@ -122,20 +122,6 @@ if !isdirectory(expand(&directory))
     call mkdir(expand(&directory), "p")
 endif
 " }}} 
-" ColorScheme{{{
-colorscheme pencil
-"colorscheme hipster
-colorscheme badwolf
-"let g:molokai_original = 1
-"let g:rehash256 = 1
-"colorscheme default
-"
-" Reload the colorscheme whenever we write the file.
-"augroup color_dev
-"au!
-"au BufWritePost badwolf.vim color badwolf
-"augroup END
-" }}}
 " Basic Autocmd Groups {{{
 augroup markup_lang
     au!
@@ -222,8 +208,9 @@ Bundle 'xuhdev/SingleCompile'
 Bundle 'yegappan/mru'
 Bundle 'joequery/Stupid-EasyMotion'
 Bundle 'scrooloose/nerdtree'
-"Plugin 'rking/ag.vim' "need external
+Plugin 'rking/ag.vim' "need external
 Bundle 'reedes/vim-colors-pencil'
+Bundle 'flazz/vim-colorschemes'
 
 "Bundle 'vim-scripts/LanguageTool'
 "Bundle 'majutsushi/tagbar'
@@ -341,6 +328,20 @@ map <C-o> <Leader><Leader>w
 map <C-e> <Leader><Leader>W
 " }}}
 
+" ColorScheme{{{
+colorscheme pencil
+"colorscheme hipster
+colorscheme badwolf
+"let g:molokai_original = 1
+"let g:rehash256 = 1
+"colorscheme default
+"
+" Reload the colorscheme whenever we write the file.
+"augroup color_dev
+"au!
+"au BufWritePost badwolf.vim color badwolf
+"augroup END
+" }}}
 
 " }}}
 " Folding {{{
@@ -764,6 +765,16 @@ endfunction
 
 " }}}
 
+" QuickFix {{{
+function! GrepQuickFix(pat)
+    let all = getqflist()
+    for d in all
+        if bufname(d['bufnr']) !~ a:pat && d['text'] !~ a:pat
+            call remove(all, index(all,d))
+        endif
+    endfor
+    call setqflist(all)
+endfunction
+command! -nargs=* Qgrep call GrepQuickFix(<q-args>)
 " }}}
-
 

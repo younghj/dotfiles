@@ -1,9 +1,10 @@
 set -g default-terminal "xterm-256color"
 
 # remap prefix to control + s
+unbind `
 unbind C-s
 set -g prefix C-s
+set -g prefix2 `
 unbind C-b
 bind C-s send-prefix
-unbind C-c
-
+bind ` send-prefix2

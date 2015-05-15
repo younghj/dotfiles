@@ -1,6 +1,6 @@
-" ~/.vim/sessions/story.vim:
+" ~/.vim/sessions/face.vim:
 " Vim session script.
-" Created by session.vim 2.7 on 10 May 2015 at 02:03:41.
+" Created by session.vim 2.7 on 10 May 2015 at 01:14:41.
 " Open this file in Vim and run :source % to restore your session.
 
 set guioptions=aegimrLtT
@@ -24,7 +24,7 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +59 my\ story.md
+badd +0 my\ story.md
 argglobal
 silent! argdel *
 argadd my\ story.md
@@ -37,21 +37,15 @@ setlocal fdm=expr
 setlocal fde=pandoc#folding#FoldExpr()
 setlocal fmr={{{,}}}
 setlocal fdi=#
-setlocal fdl=0
+setlocal fdl=2
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-1
-silent! normal! zo
-67
-silent! normal! zo
-90
-silent! normal! zo
-let s:l = 91 - ((90 * winheight(0) + 16) / 32)
+let s:l = 1 - ((0 * winheight(0) + 16) / 32)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-91
+1
 normal! 0
 lcd ~/code
 tabnext 1

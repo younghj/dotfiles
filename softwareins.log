@@ -1,6 +1,7 @@
 accountsservice					install
 acl						install
 adduser						install
+aglfn						install
 alsa-utils					install
 anacron						install
 app-install-data				install
@@ -36,6 +37,7 @@ bzr						install
 ca-certificates					install
 ca-certificates-java				install
 cabextract					install
+caffeine					install
 chromium-browser				install
 chromium-browser-l10n				install
 chromium-codecs-ffmpeg-extra			install
@@ -60,6 +62,7 @@ cpio						install
 cpp						install
 cpp-4.8						install
 cron						install
+crouton-network-manager				install
 cscope						install
 cups-bsd					install
 cups-client					install
@@ -75,6 +78,7 @@ debconf						install
 debconf-i18n					install
 debhelper					install
 debianutils					install
+default-jre-headless				install
 deluge						install
 deluge-common					install
 deluge-gtk					install
@@ -159,6 +163,7 @@ geoip-database					install
 gettext						install
 gettext-base					install
 ghostscript					install
+gir1.2-appindicator3-0.1			install
 gir1.2-atk-1.0					install
 gir1.2-freedesktop				install
 gir1.2-gdkpixbuf-2.0				install
@@ -188,6 +193,7 @@ gnome-keyring					install
 gnome-system-monitor				deinstall
 gnome-user-guide				install
 gnupg						install
+gnuplot-x11					install
 gnusim8085					install
 gpgv						install
 graphviz					install
@@ -537,6 +543,7 @@ libcurl3-gnutls:amd64				install
 libcurl4-openssl-dev:amd64			install
 libcv-dev:amd64					install
 libcvaux-dev:amd64				install
+libcxsparse3.1.2:amd64				install
 libdap11:amd64					install
 libdapclient3:amd64				install
 libdatrie1:amd64				install
@@ -623,6 +630,7 @@ libflann-dev					install
 libflann1.8:amd64				install
 libflite1:amd64					install
 libfltk-forms1.3:amd64				install
+libfltk-gl1.3:amd64				install
 libfltk-images1.3:amd64				install
 libfltk1.1:amd64				install
 libfltk1.1-dev					deinstall
@@ -699,6 +707,7 @@ libglib2.0-bin					install
 libglib2.0-data					install
 libglib2.0-dev					install
 libglibmm-2.4-1c2a:amd64			deinstall
+libglpk36:amd64					install
 libglu1-mesa:amd64				install
 libglu1-mesa:i386				install
 libglu1-mesa-dev				install
@@ -732,6 +741,7 @@ libgphoto2-port10:amd64				install
 libgphoto2-port10:i386				install
 libgpm2:amd64					install
 libgpm2:i386					install
+libgraphicsmagick++3				install
 libgraphicsmagick3				install
 libgraphite2-3:amd64				install
 libgroupsock1					install
@@ -830,6 +840,7 @@ libilmbase6:amd64				install
 libimobiledevice4:amd64				install
 libindicator3-7					install
 libindicator7					install
+libintl-perl					install
 libio-html-perl					install
 libio-pty-perl					install
 libio-socket-inet6-perl				install
@@ -963,6 +974,7 @@ liblzma5:i386					install
 liblzo2-2:amd64					install
 libmad0:amd64					install
 libmagic1:amd64					install
+libmagick++5:amd64				install
 libmagickcore5:amd64				install
 libmagickcore5-extra:amd64			install
 libmagickwand5:amd64				install
@@ -1006,6 +1018,7 @@ libnepomukcleaner4				install
 libnepomukcore4abi1				install
 libnepomukquery4a				install
 libnepomukutils4				install
+libnet-dbus-perl				install
 libnet-dns-perl					install
 libnet-domain-tld-perl				install
 libnet-http-perl				install
@@ -1036,6 +1049,7 @@ libntlm0:amd64					install
 libntrack-qt4-1					install
 libntrack0					install
 libnuma1:amd64					install
+liboctave2:amd64				install
 libodbc1:amd64					install
 libofa0						install
 libogdi3.2					install
@@ -1207,6 +1221,7 @@ libplayerjpeg3.0				install
 libplayertcp3.0					install
 libplayerwkb3.0					install
 libplist1:amd64					install
+libplot2c2					install
 libplymouth2:amd64				install
 libpmap3.0					install
 libpng12-0:amd64				install
@@ -1245,6 +1260,7 @@ libprotobuf8:amd64				install
 libprotoc8:amd64				install
 libproxy-tools					install
 libproxy1:amd64					install
+libpstoedit0c2a					install
 libpthread-stubs0-dev:amd64			install
 libpulse-mainloop-glib0:amd64			install
 libpulse0:amd64					install
@@ -1273,6 +1289,9 @@ libqhull6:amd64					install
 libqimageblitz4					install
 libqjson0:amd64					install
 libqmobipocket1					install
+libqrupdate1					install
+libqscintilla2-11				install
+libqscintilla2-l10n				install
 libqt4-dbus:amd64				install
 libqt4-declarative:amd64			install
 libqt4-designer:amd64				install
@@ -1442,6 +1461,7 @@ libtext-charwidth-perl				install
 libtext-iconv-perl				install
 libtext-levenshtein-perl			install
 libtext-soundex-perl				install
+libtext-unidecode-perl				install
 libtext-wrapi18n-perl				install
 libthai-data					install
 libthai0:amd64					install
@@ -1450,6 +1470,7 @@ libtheora0:amd64				install
 libthing					install
 libthreadweaver4				install
 libthunarx-2-0					install
+libtie-ixhash-perl				install
 libtiff5:amd64					install
 libtiff5:i386					install
 libtiff5-dev:amd64				install
@@ -1664,6 +1685,14 @@ libxkbcommon-x11-0:amd64			install
 libxkbcommon0:amd64				install
 libxkbfile1:amd64				install
 libxklavier16					install
+libxml-libxml-perl				install
+libxml-namespacesupport-perl			install
+libxml-parser-perl				install
+libxml-sax-base-perl				install
+libxml-sax-expat-perl				install
+libxml-sax-perl					install
+libxml-twig-perl				install
+libxml-xpathengine-perl				install
 libxml2:amd64					install
 libxml2:i386					install
 libxml2-dev:amd64				install
@@ -1761,13 +1790,16 @@ net-tools					install
 netbase						install
 netcat-openbsd					install
 netpbm						install
-netsurf-gtk					deinstall
+netsurf-common					install
+netsurf-gtk					install
 notification-daemon				install
 ntfs-3g						install
 ntpdate						install
 ntrack-module-libnl-0				install
 ocl-icd-libopencl1:amd64			install
 ocl-icd-libopencl1:i386				install
+octave						install
+octave-common					install
 odbcinst					install
 odbcinst1debian2:amd64				install
 okular						install
@@ -1817,6 +1849,7 @@ procps						install
 proj-bin					install
 proj-data					install
 psmisc						install
+pstoedit					install
 pulseaudio					install
 pulseaudio-module-x11				install
 pulseaudio-utils				install
@@ -1999,6 +2032,7 @@ python3-software-properties			install
 python3-update-manager				install
 python3-xdg					install
 python3-xkit					install
+python3-xlib					install
 python3.4					install
 python3.4-dev					install
 python3.4-minimal				install
@@ -2286,6 +2320,7 @@ tcl8.6						install
 tcl8.6-dev:amd64				install
 tcpd						install
 tdb-tools					install
+texinfo						install
 thunar						install
 thunar-archive-plugin				install
 thunar-data					install
