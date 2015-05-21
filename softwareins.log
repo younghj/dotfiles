@@ -26,6 +26,9 @@ base-files					install
 base-passwd					install
 bash						install
 bash-completion					install
+bible-kjv					install
+bible-kjv-text					install
+bibletime					deinstall
 binfmt-support					install
 binutils					install
 bsdmainutils					install
@@ -1438,6 +1441,8 @@ libstreams0					install
 libsub-identify-perl				install
 libsub-name-perl				install
 libsvn1:amd64					install
+libsword-common					deinstall
+libsword9					deinstall
 libswscale-dev					install
 libswscale2:amd64				install
 libsys-hostname-long-perl			install
@@ -2370,6 +2375,7 @@ usbutils					install
 util-linux					install
 uuid-dev					install
 uuid-runtime					install
+verse						install
 vim						install
 vim-addon-manager				install
 vim-common					install
