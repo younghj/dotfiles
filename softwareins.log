@@ -1869,6 +1869,7 @@ python-bzrlib					install
 python-cairo					install
 python-catkin-pkg				install
 python-chardet					install
+python-colorama					install
 python-commandnotfound				install
 python-configobj				install
 python-crypto					install
@@ -1882,6 +1883,7 @@ python-decorator				install
 python-defer					install
 python-dev					install
 python-dirspec					install
+python-distlib					install
 python-django					install
 python-dnspython				install
 python-docutils					install
@@ -1899,6 +1901,7 @@ python-gpgme					install
 python-gtk2					install
 python-guppy					install
 python-guppy-lib				install
+python-html5lib					install
 python-httplib2					install
 python-imaging					install
 python-joblib					install
@@ -1931,6 +1934,7 @@ python-paramiko					install
 python-parsedatetime				install
 python-pexpect					install
 python-pil					install
+python-pip					install
 python-piston-mini-client			install
 python-pkg-resources				install
 python-psutil					install
@@ -2001,6 +2005,7 @@ python-vobject					install
 python-vtk					install
 python-w3lib					install
 python-wadllib					install
+python-wheel					install
 python-wstool					install
 python-wxgtk2.8					install
 python-wxversion				install

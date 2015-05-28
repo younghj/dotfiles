@@ -8,3 +8,9 @@ set -g prefix2 `
 unbind C-b
 bind C-s send-prefix
 bind ` send-prefix2
+
+setw -g mode-mouse on
+
+bind-key \; command-prompt
+set-window-option -g window-status-current-bg light-blue
+set -sg escape-time 0

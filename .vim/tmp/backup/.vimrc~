@@ -1,4 +1,6 @@
 set nocompatible
+let mapleader=","
+set encoding=utf-8
 " Plugin/Vundle setup {{{
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -6,6 +8,7 @@ call vundle#rc()
 
 Plugin 'gmarik/Vundle.vim' "need external
 "Bundle 'scrooloose/syntastic'
+"Bundle 'tpope/vim-vinegar'
 Bundle 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe' "need external
 Bundle 'Valloric/MatchTagAlways'
@@ -37,8 +40,8 @@ Bundle 'godlygeek/tabular'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'rhysd/clever-f.vim'
 Bundle 'mileszs/ack.vim'
-Bundle 'henrik/vim-indexed-search'
-"Bundle 'tpope/vim-vinegar'
+"Bundle 'powerline/powerline'
+"Bundle 'henrik/vim-indexed-search'
 
 filetype plugin indent on
 filetype plugin on
@@ -88,9 +91,8 @@ nnoremap <leader>sc :CloseSession<CR>
 "}}}
 
 " Airline{{{
-"let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='badwolf'
+"let g:airline_theme='badwolf'
 let g:airline_left_sep='>'
 let g:airline_right_sep='<'
 let g:airline#extensions#branch#enabled = 1
@@ -143,10 +145,10 @@ let g:gitgutter_enabled =1
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
-nnoremap <leader>G mG:Git!
-nnoremap <leader>g :Git
-nnoremap <leader>A :!ag
-nnoremap <leader>a :Ag!
+nnoremap <leader>G mG:Git! 
+nnoremap <leader>g :Git 
+nnoremap <leader>A :!ag 
+nnoremap <leader>a :Ag! 
 let g:ackprg = "ag --nogroup --column"
 " }}}
 
@@ -161,7 +163,6 @@ let g:clever_f_across_no_line = 1
 
 " Basic options {{{
 " Base setup {{{
-let mapleader=","
 set mouse-=a
 set nodigraph
 
@@ -330,7 +331,7 @@ colorscheme badwolf
 " Basic mappings {{{
 nnoremap ; :
 nmap <silent> <leader>l :nohlsearch<CR>
-nmap <silent> <leader>/ :nohlsearch<CR>
+nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 "stop highlighting searches
 syntax on
 inoremap jj <Esc>
@@ -740,18 +741,6 @@ endfunction
 
 " }}}
 "}}}
-" QuickFix {{{
-function! GrepQuickFix(pat)
-    let all = getqflist()
-    for d in all
-        if bufname(d['bufnr']) !~ a:pat && d['text'] !~ a:pat
-            call remove(all, index(all,d))
-        endif
-    endfor
-    call setqflist(all)
-endfunction
-command! -nargs=* Qgrep call GrepQuickFix(<q-args>)
-" }}}
 " Folding {{{
 
 set foldlevelstart=2
@@ -793,4 +782,61 @@ function! MyFoldText() " {{{
 endfunction " }}}
 set foldtext=MyFoldText()
 
+" }}}
+
+" QuickFix {{{
+function! GrepQuickFix(pat)
+    let all = getqflist()
+    for d in all
+        if bufname(d['bufnr']) =~ a:pat || d['text'] =~ a:pat
+            call remove(all, index(all,d))
+        endif
+    endfor
+    call setqflist(all)
+endfunction
+command! -nargs=* Qgrep call GrepQuickFix(<q-args>)
+
+function! GrepQuickFixOpp(pat)
+    let all = getqflist()
+    for d in all
+        if !( bufname(d['bufnr']) =~ a:pat || d['text'] =~ a:pat )
+            call remove(all, index(all,d))
+        endif
+    endfor
+    call setqflist(all)
+endfunction
+command! -nargs=* Qgrepo call GrepQuickFixOpp(<q-args>)
+augroup quickfix
+    autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+    autocmd BufReadPost quickfix nnoremap <buffer> Q :Qgrep 
+    autocmd BufReadPost quickfix nnoremap <buffer> <leader>q :Qgrepo 
+    autocmd BufReadPost quickfix nnoremap <silent> <buffer> h  <C-W><CR><C-w>K
+    autocmd BufReadPost quickfix nnoremap <silent> <buffer> H  <C-W><CR><C-w>K<C-w>b
+    autocmd BufReadPost quickfix nnoremap <silent> <buffer> o  <CR>
+    autocmd BufReadPost quickfix nnoremap <silent> <buffer> t  <C-w><CR><C-w>T
+    autocmd BufReadPost quickfix nnoremap <silent> <buffer> T  <C-w><CR><C-w>TgT<C-W><C-W>
+    autocmd BufReadPost quickfix nnoremap <silent> <buffer> v  <C-w><CR><C-w>H<C-W>b<C-W>J<C-W>t
+
+    nnoremap <silent> <buffer> e <CR><C-w><C-w>:cclose<CR>
+    nnoremap <silent> <buffer> go <CR>:copen<CR>
+    nnoremap <silent> <buffer> q  :cclose<CR>
+
+    nnoremap <silent> <buffer> gv :let b:height=winheight(0)<CR><C-w><CR><C-w>H:copen<CR><C-w>J:exe printf(":normal %d\<lt>c-w>_", b:height)<CR>
+augroup END
+" }}}
+
+" Empty bd {{{
+function! DeleteEmptyBuffers()
+    let [i, n; empty] = [1, bufnr('$')]
+    while i <= n
+        if bufexists(i) && bufname(i) == ''
+            call add(empty, i)
+        endif
+        let i += 1
+    endwhile
+    if len(empty) > 0
+        exe 'bdelete' join(empty)
+    endif
+endfunction
+command! Ebd call DeleteEmptyBuffers()
 " }}}
