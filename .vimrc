@@ -303,6 +303,7 @@ augroup END
 augroup syntaxChange
     au!
     au BufRead,BufNewFile *.m?d? set filetype=markdown
+    au BufRead,BufNewFile .bash_functions set filetype=sh
 augroup END
 
 augroup saveBuf
@@ -807,6 +808,7 @@ function! GrepQuickFixOpp(pat)
     call setqflist(all)
 endfunction
 command! -nargs=* Qgrepo call GrepQuickFixOpp(<q-args>)
+
 augroup quickfix
     autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
     autocmd BufReadPost quickfix nnoremap <buffer> Q :Qgrep 
