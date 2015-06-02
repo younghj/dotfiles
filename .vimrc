@@ -25,9 +25,9 @@ Plugin 'bling/vim-airline'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'sjl/badwolf'
-Bundle 'vim-pandoc/vim-pandoc'
-Bundle 'vim-pandoc/vim-pandoc-syntax'
-Bundle 'vim-pandoc/vim-pandoc-after'
+"Bundle 'vim-pandoc/vim-pandoc'
+"Bundle 'vim-pandoc/vim-pandoc-syntax'
+"Bundle 'vim-pandoc/vim-pandoc-after'
 Bundle 'xuhdev/SingleCompile'
 Bundle 'yegappan/mru'
 Bundle 'joequery/Stupid-EasyMotion'
@@ -163,7 +163,8 @@ let g:clever_f_across_no_line = 1
 
 " Basic options {{{
 " Base setup {{{
-set mouse-=a
+"set mouse-=a
+set mouse=nicr
 set nodigraph
 
 set showmode
@@ -787,7 +788,7 @@ set foldtext=MyFoldText()
 " }}}
 
 " QuickFix {{{
-function! GrepQuickFix(pat)
+function! GrepQuickFixOpp(pat)
     let all = getqflist()
     for d in all
         if bufname(d['bufnr']) =~ a:pat || d['text'] =~ a:pat
@@ -798,10 +799,10 @@ function! GrepQuickFix(pat)
 endfunction
 command! -nargs=* Qgrep call GrepQuickFix(<q-args>)
 
-function! GrepQuickFixOpp(pat)
+function! GrepQuickFix(pat)
     let all = getqflist()
     for d in all
-        if !( bufname(d['bufnr']) =~ a:pat || d['text'] =~ a:pat )
+        if !(bufname(d['bufnr']) =~ a:pat || d['text'] =~ a:pat )
             call remove(all, index(all,d))
         endif
     endfor
