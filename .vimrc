@@ -163,8 +163,8 @@ let g:clever_f_across_no_line = 1
 
 " Basic options {{{
 " Base setup {{{
-"set mouse-=a
-set mouse=nicr
+set mouse-=a
+"set mouse=nicr
 set nodigraph
 
 set showmode

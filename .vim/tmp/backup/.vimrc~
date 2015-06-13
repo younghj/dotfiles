@@ -25,9 +25,9 @@ Plugin 'bling/vim-airline'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'sjl/badwolf'
-Bundle 'vim-pandoc/vim-pandoc'
-Bundle 'vim-pandoc/vim-pandoc-syntax'
-Bundle 'vim-pandoc/vim-pandoc-after'
+"Bundle 'vim-pandoc/vim-pandoc'
+"Bundle 'vim-pandoc/vim-pandoc-syntax'
+"Bundle 'vim-pandoc/vim-pandoc-after'
 Bundle 'xuhdev/SingleCompile'
 Bundle 'yegappan/mru'
 Bundle 'joequery/Stupid-EasyMotion'
@@ -163,7 +163,8 @@ let g:clever_f_across_no_line = 1
 
 " Basic options {{{
 " Base setup {{{
-set mouse-=a
+"set mouse-=a
+set mouse=nicr
 set nodigraph
 
 set showmode
@@ -303,6 +304,7 @@ augroup END
 augroup syntaxChange
     au!
     au BufRead,BufNewFile *.m?d? set filetype=markdown
+    au BufRead,BufNewFile .bash_functions set filetype=sh
 augroup END
 
 augroup saveBuf
@@ -507,6 +509,7 @@ augroup END
 augroup ft_python
     au!
 
+    au FileType python setlocal softtabstop=2 tabstop=2 shiftwidth=2
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
     au FileType man nnoremap <buffer> <cr> :q<cr>
 
@@ -785,7 +788,7 @@ set foldtext=MyFoldText()
 " }}}
 
 " QuickFix {{{
-function! GrepQuickFix(pat)
+function! GrepQuickFixOpp(pat)
     let all = getqflist()
     for d in all
         if bufname(d['bufnr']) =~ a:pat || d['text'] =~ a:pat
@@ -796,20 +799,22 @@ function! GrepQuickFix(pat)
 endfunction
 command! -nargs=* Qgrep call GrepQuickFix(<q-args>)
 
-function! GrepQuickFixOpp(pat)
+function! GrepQuickFix(pat)
     let all = getqflist()
     for d in all
-        if !( bufname(d['bufnr']) =~ a:pat || d['text'] =~ a:pat )
+        if !(bufname(d['bufnr']) =~ a:pat || d['text'] =~ a:pat )
             call remove(all, index(all,d))
         endif
     endfor
     call setqflist(all)
 endfunction
 command! -nargs=* Qgrepo call GrepQuickFixOpp(<q-args>)
+
 augroup quickfix
     autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
     autocmd BufReadPost quickfix nnoremap <buffer> Q :Qgrep 
     autocmd BufReadPost quickfix nnoremap <buffer> <leader>q :Qgrepo 
+
     autocmd BufReadPost quickfix nnoremap <silent> <buffer> h  <C-W><CR><C-w>K
     autocmd BufReadPost quickfix nnoremap <silent> <buffer> H  <C-W><CR><C-w>K<C-w>b
     autocmd BufReadPost quickfix nnoremap <silent> <buffer> o  <CR>
