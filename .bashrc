@@ -35,12 +35,11 @@ CLICOLOR=1
 
 shopt -s extglob 
 FIGNORE=.class:.out:.tst:.cmp
-source /opt/ros/indigo/setup.bash
-source /home/tommy/code/workspace/uwrobotics.uwmrt/Software/Workspace/devel/setup.sh
 export TERM="xterm-256color"
-tmux source-file ~/.tmux.conf
 
 CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:~/libs/cppLibs/dlib-18.13
 export CPLUS_INCLUDE_PATH
 #sets the Mail Environment Variable
 MAIL=/var/spool/mail/john && export MAIL
+
+tmux new-session -A -s main
