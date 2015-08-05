@@ -208,7 +208,7 @@ set undolevels=5000
 set noswapfile
 
 set title
-set visualbell
+"set visualbell
 set noerrorbells
 
 set list
