@@ -7,20 +7,20 @@ fldrsave (){
 tarx (){
     tar zxvf "$1"
 }
-md (){
-    if [ $# -ne 1 ]
-    then
-        printf "\nSorry only supports one file at a time\n\n"
-        return;
-    fi
+#md (){
+    #if [ $# -ne 1 ]
+    #then
+        #printf "\nSorry only supports one file at a time\n\n"
+        #return;
+    #fi
 
-    fileName=${1%\.m*d*}
+    #fileName=${1%\.m*d*}
 
-    rm "$fileName".html "$fileName".tar.gz 2>/dev/null
-    "$codeDir"/Markdown_1.0.1/Markdown.pl "$1" > "$fileName".html
-    zip "$fileName".zip "$fileName".html $1
-    tar cvfz "$fileName".tar.gz "$fileName".html $1
-}
+    #rm "$fileName".html "$fileName".tar.gz 2>/dev/null
+    #"$codeDir"/Markdown_1.0.1/Markdown.pl "$1" > "$fileName".html
+    #zip "$fileName".zip "$fileName".html $1
+    #tar cvfz "$fileName".tar.gz "$fileName".html $1
+#}
 nand (){
     projDir="$codeDir"/osproj;
     if [ $# -ne 3 ] 
@@ -67,9 +67,9 @@ nand (){
 
 
 alias cls='clear'
-alias update='sudo apt-get update'
-alias ins='sudo apt-get install'
-alias upgrade='sudo apt-get upgrade'
+alias update='sudo aptitude update'
+alias ins='sudo aptitude install'
+alias upgrade='sudo aptitude upgrade'
 alias l='ls -CF'
 alias la='ls -A'
 alias ll='ls -alF'
@@ -80,13 +80,13 @@ alias adlias='vim $HOME/.bash_aliases'
 alias search='apt-cache search'
 alias pkg='apt-cache show'
 alias pkgd='apt-cache showpkg'
-alias rem='sudo apt-get autoremove'
+alias rem='sudo aptitude autoremove'
 alias dl='cd ~/Desktop/Download'
 alias dlc='cd ~/Downloads'
 alias dls='dl;ls'
 alias wrk='cd $codeDir/workspace'
 alias hack='cd $codeDir/hack'
-alias clean='sudo apt-get clean'
+alias clean='sudo aptitude clean'
 alias elink='elinks'
 alias mkvimtut='cd $HOME;cp -if vimtutor temptutor'
 alias pkgs='dpkg --get-selections'
@@ -120,3 +120,10 @@ alias gcal='gcalcli'
 alias ..='cd ..'
 alias class='cd ~/Videos/learning/cousera/assignment'
 alias pushback='cp $dotfileDir/.vimrc ~/.vimrc.new'
+alias sshinto='ssh -i ~/.ssh/id_rsa jung4351@104.196.167.28'
+alias work='cd ~/code/deeppixel/'
+alias javawork='cd ~/code/deeppixel/sonnet-bot/src/com/deeppixel/laserlux'
+alias gitsub="git submodule foreach git pull origin master"
+alias eclim="pkill -f eclim; ~/eclipse/eclimd"
+alias mvndep="mvn dependency:copy-dependencies"
+alias ipython2='python2.7 -m IPython'

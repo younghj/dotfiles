@@ -71,6 +71,7 @@ let g:ycm_cache_omnifunc = 1
 let g:ycm_server_keep_logfiles = 1
 let g:ycm_server_log_level = 'debug'
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:EclimCompletionMethod = 'omnifunc'
 
 "set completeopt-=preview
 let g:ycm_seed_identifiers_with_syntax = 1
@@ -179,6 +180,7 @@ set splitbelow
 set splitright
 set autowriteall
 set autoread
+au CursorHold * checktime
 set hidden
 
 set nowrap
@@ -220,9 +222,9 @@ set t_Co=256
 set background=dark
 set ff=unix
 set so=999
-set foldmethod=marker
 set timeoutlen=1000 ttimeoutlen=0
 set term=screen-256color
+set clipboard=unnamedplus
 
 " Time out on key codes but not mappings
 " Basically this makes terminal Vim work sanely
@@ -337,6 +339,7 @@ nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 "stop highlighting searches
 syntax on
 inoremap jj <Esc>
+inoremap j<CR> j<Esc>
 cnoremap jj <Esc>
 vmap Q gq
 nmap Q gqap
@@ -346,16 +349,18 @@ nnoremap j gj
 nnoremap k gk
 nmap ;todo :e $HOME/code/todo.md<CR>
 nnoremap <leader>W :set wrap!<CR>
-cnoremap <buffer> so<TAB> so $MYVIMRC<CR>
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+cnoremap <buffer> sc<TAB> so $MYVIMRC<CR>
+"noremap <Up> <NOP>
+"noremap <Down> <NOP>
+"noremap <Left> <NOP>
+"noremap <Right> <NOP>
 noremap h <NOP>
 noremap l <NOP>
 noremap \ ;
 nnoremap <CR> ;
 nnoremap <TAB> <C-w>
+
+set nofoldenable
 
 " }}}
 
@@ -432,8 +437,8 @@ augroup ft_java
     au FileType java setlocal foldmethod=marker
     au FileType java setlocal foldmarker={,}
     au FileType java cnoremap <buffer> pc<TAB> :w<cr>:!javac %; java -cp . %:r<CR>
-    au FileType java setlocal omnifunc=javacomplete#Complete
-    au FileType java setlocal completefunc=javacomplete#CompleteParamsInfo
+    "au FileType java setlocal omnifunc=javacomplete#Complete
+    "au FileType java setlocal completefunc=javacomplete#CompleteParamsInfo
 augroup END
 
 " }}}
@@ -474,7 +479,6 @@ augroup END
 augroup ft_markdown
     au!
 
-    au BufNewFile,BufRead *.m*down setlocal filetype=markdown foldlevel=1
 
     " Use <localleader>1/2/3 to add headings.
     au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
@@ -509,7 +513,7 @@ augroup END
 augroup ft_python
     au!
 
-    au FileType python setlocal softtabstop=2 tabstop=2 shiftwidth=2
+    au FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
     au FileType man nnoremap <buffer> <cr> :q<cr>
 
@@ -518,6 +522,7 @@ augroup ft_python
     au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
 
     au FileType python iabbrev <buffer> afo assert False, "Okay"
+    "au FileType python cnoremap <buffer> pc<TAB> :w<cr>:!python3 %<CR>
     au FileType python cnoremap <buffer> pc<TAB> :w<cr>:!python %<CR>
 augroup END
 
@@ -526,7 +531,6 @@ augroup END
 
 augroup ft_ruby
     au!
-    au Filetype ruby setlocal foldmethod=syntax
     au BufRead,BufNewFile Capfile setlocal filetype=ruby
 augroup END
 
@@ -547,7 +551,6 @@ augroup END
 augroup ft_xml
     au!
 
-    au FileType xml setlocal foldmethod=manual
 
     " Use <localleader>f to fold the current tag.
     au FileType xml nnoremap <buffer> <localleader>f Vatzf
@@ -558,6 +561,17 @@ augroup END
 
 " }}}
 
+" Octave/Matlab {{{
+
+augroup ft_matlab
+    au!
+
+    au FileType matlab setlocal softtabstop=2 tabstop=2 shiftwidth=2
+
+    au FileType matlab cnoremap <buffer> pc<TAB> :w<cr>:!octave %<CR>
+augroup END
+
+" }}}
 " }}}
 
 " ===============================
@@ -744,48 +758,6 @@ endfunction
 
 " }}}
 "}}}
-" Folding {{{
-
-set foldlevelstart=2
-
-" Space to toggle folds.
-nnoremap <Space> za
-vnoremap <Space> za
-
-" Make zO recursively open whatever fold we're in, even if it's partially open.
-nnoremap zO zczO
-
-" 'Focus' the current line.  Basically:
-"
-" 1. Close all folds.
-" 2. Open just the folds containing the current line.
-" 3. Move the line to a little bit (15 lines) above the center of the screen.
-" 4. Pulse the cursor line.  My eyes are bad.
-"
-" This mapping wipes out the z mark, which I never use.
-"
-" I use :sus for the rare times I want to actually background Vim.
-nnoremap <c-x> mzzMzvzz15<c-e>`z
-"nnoremap <c-a-z> zrzO
-
-function! MyFoldText() " {{{
-    let line = getline(v:foldstart)
-
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
-
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
-
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . '¿' . repeat(" ",fillcharcount) . foldedlinecount . '¿' . ' '
-endfunction " }}}
-set foldtext=MyFoldText()
-
-" }}}
 
 " QuickFix {{{
 function! GrepQuickFixOpp(pat)
