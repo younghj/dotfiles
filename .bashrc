@@ -55,5 +55,4 @@ ssh() {
     fi
 
 }
-
 tmux new-session -A -s main

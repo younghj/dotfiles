@@ -82,7 +82,7 @@ alias pkg='apt-cache show'
 alias pkgd='apt-cache showpkg'
 alias rem='sudo aptitude autoremove'
 alias dl='cd ~/Desktop/Download'
-alias dlc='cd ~/Downloads'
+alias cdl='cd ~/Downloads'
 alias dls='dl;ls'
 alias wrk='cd $codeDir/workspace'
 alias hack='cd $codeDir/hack'
@@ -127,3 +127,10 @@ alias gitsub="git submodule foreach git pull origin master"
 alias eclim="pkill -f eclim; ~/eclipse/eclimd"
 alias mvndep="mvn dependency:copy-dependencies"
 alias ipython2='python2.7 -m IPython'
+
+alias aws_p2='export instanceId=`aws ec2 describe-instances --filters "Name=instance-state-name,Values=stopped,Name=instance-type,Values=p2.xlarge" --query "Reservations[0].Instances[0].InstanceId"` && echo $instanceId'
+alias aws_t2='export instanceId=`aws ec2 describe-instances --filters "Name=instance-state-name,Values=stopped,Name=instance-type,Values=t2.micro" --query "Reservations[0].Instances[0].InstanceId"` && echo $instanceId'
+alias aws_start='aws ec2 start-instances --instance-ids $instanceId && aws ec2 wait instance-running --instance-ids $instanceId && export instanceIp=`aws ec2 describe-instances --filters "Name=instance-id,Values=$instanceId" --query "Reservations[0].Instances[0].PublicIpAddress"` && echo $instanceIp'
+alias aws_ip='export instanceIp=`aws ec2 describe-instances --filters "Name=instance-id,Values=$instanceId" --query "Reservations[0].Instances[0].PublicIpAddress"` && echo $instanceIp'
+alias aws_ssh='ssh -i ~/.ssh/aws-key.pem ubuntu@$instanceIp'
+alias aws_stop='aws ec2 stop-instances --instance-ids $instanceId'
